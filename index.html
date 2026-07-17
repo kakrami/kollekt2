@@ -1,0 +1,4345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#07110f" />
+    <title>Kia's Kollekt</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #06100d;
+        --panel: #0b1713;
+        --panel2: #10211b;
+        --line: #244137;
+        --text: #eef8f3;
+        --muted: #91aa9f;
+        --accent: #20d982;
+        --blue: #55a7ff;
+        --red: #ff6d77;
+        --shadow: 0 18px 48px #0008;
+        --r: 14px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        min-height: 100%;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% -10%, #20d98222, transparent 32rem),
+          linear-gradient(#07130f, var(--bg));
+        color: var(--text);
+        font:
+          14px/1.35 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+      button {
+        min-height: 34px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel2);
+        color: var(--text);
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      button:hover,
+      button:focus-visible {
+        border-color: var(--accent);
+        outline: none;
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .primary {
+        border-color: var(--accent);
+        background: linear-gradient(135deg, #12b96c, var(--accent));
+        color: #02140c;
+        font-weight: 900;
+      }
+      .add-action {
+        border-color: #55a7ff66;
+        background: #55a7ff12;
+        color: var(--blue);
+      }
+      .add-action:hover,
+      .add-action:focus-visible {
+        border-color: var(--blue);
+        background: #55a7ff24;
+        color: var(--blue);
+      }
+      .remove-action {
+        border-color: #ff6d7766;
+        background: #ff6d7712;
+        color: var(--red);
+      }
+      .remove-action:hover,
+      .remove-action:focus-visible {
+        border-color: var(--red);
+        background: #ff6d7724;
+        color: var(--red);
+      }
+      .danger-btn {
+        border-color: #ff6d7755;
+        color: var(--red);
+      }
+      .danger-btn:hover,
+      .danger-btn:focus-visible {
+        border-color: var(--red);
+        background: #ff6d7712;
+        color: var(--red);
+      }
+      .danger-btn .menu-ico {
+        color: var(--red);
+      }
+      .shell {
+        width: min(1120px, 100%);
+        margin: auto;
+        padding: 10px 12px;
+      }
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        padding-top: env(safe-area-inset-top, 0);
+        border-bottom: 1px solid #57987444;
+        background: #06100df2;
+        backdrop-filter: blur(14px);
+      }
+      .head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-width: 0;
+      }
+      .mark {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        display: block;
+        object-fit: contain;
+        border-radius: 50%;
+        filter: drop-shadow(0 7px 14px #0008);
+      }
+      .brand h1 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1;
+      }
+      .meta {
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .actions {
+        display: flex;
+        gap: 6px;
+      }
+      .icon {
+        position: relative;
+        width: 36px;
+        min-width: 36px;
+        height: 36px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        font-size: 17px;
+      }
+      .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        display: grid;
+        place-items: center;
+        border: 2px solid var(--bg);
+        border-radius: 999px;
+        background: var(--accent);
+        color: #02140c;
+        font-size: 9px;
+        font-weight: 1000;
+      }
+      .search-wrap {
+        position: relative;
+        margin-top: 8px;
+      }
+      .search {
+        width: 100%;
+        height: 38px;
+        padding: 8px 42px 8px 11px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #081510;
+        color: var(--text);
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .search::-webkit-search-decoration,
+      .search::-webkit-search-cancel-button,
+      .search::-webkit-search-results-button,
+      .search::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+        display: none;
+      }
+      .search:focus,
+      textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px #20d9821c;
+        outline: none;
+      }
+      .search-clear {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
+        min-height: 28px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 20px;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
+      .search-clear:hover,
+      .search-clear:focus-visible {
+        background: #193127;
+        color: var(--text);
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto auto;
+        gap: 7px;
+        margin-top: 8px;
+        align-items: center;
+      }
+      .export-visible {
+        width: 34px;
+        min-width: 34px;
+        height: 34px;
+        min-height: 34px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+      }
+      .export-visible svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+        fill: currentColor;
+        pointer-events: none;
+      }
+      .segments {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 2px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #07120e;
+      }
+      .segments button {
+        min-height: 28px;
+        padding: 4px 8px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .segments button.on {
+        background: var(--accent);
+        color: #02140c;
+      }
+      .filters {
+        display: none;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .filters.open {
+        display: flex;
+      }
+      .pill {
+        min-height: 29px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+      }
+      .pill.on {
+        border-color: var(--accent);
+        background: #20d98229;
+        color: var(--accent);
+      }
+      .count {
+        margin-left: 4px;
+        opacity: 0.7;
+      }
+      .extra-count {
+        margin-left: 4px;
+        color: var(--accent);
+        font-size: 9px;
+        font-weight: 950;
+      }
+      .pop {
+        position: fixed;
+        z-index: 90;
+        width: min(370px, calc(100vw - 24px));
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .pop[hidden] {
+        display: none;
+      }
+      .pop-title {
+        margin: 2px 2px 9px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .pop-grid {
+        display: grid;
+        gap: 7px;
+      }
+      .menu-btn {
+        min-height: 46px;
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 8px;
+        align-items: center;
+        text-align: left;
+      }
+      .menu-btn b,
+      .menu-btn small {
+        display: block;
+      }
+      .menu-btn small {
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .menu-ico {
+        color: var(--accent);
+        font-size: 18px;
+        text-align: center;
+      }
+      textarea {
+        width: 100%;
+        min-height: 92px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #081510;
+        color: var(--text);
+        resize: vertical;
+      }
+      main.shell {
+        padding-top: 8px;
+        padding-bottom: 80px;
+      }
+      .setup,
+      .empty {
+        padding: 24px;
+        border: 1px dashed var(--line);
+        border-radius: var(--r);
+        background: #0b1713b8;
+        color: var(--muted);
+        text-align: center;
+      }
+      .setup b,
+      .empty b {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--text);
+        font-size: 15px;
+      }
+      .collection {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        background: #0b1713e0;
+      }
+      .thead,
+      .row {
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr) 94px;
+        gap: 8px;
+        align-items: center;
+      }
+      .thead {
+        min-height: 32px;
+        padding: 5px 9px;
+        border-bottom: 1px solid var(--line);
+        background: #0a1712;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .thead span:not(:nth-child(2)) {
+        text-align: center;
+      }
+      .row {
+        min-height: 58px;
+        padding: 7px 9px;
+        border-bottom: 1px solid #4069583d;
+        transition: 0.15s;
+      }
+      .row:last-child {
+        border-bottom: 0;
+      }
+      .row:hover {
+        background: #20d9820b;
+      }
+      .row.owned {
+        background: #20d98209;
+      }
+      .row.pending-add {
+        box-shadow: inset 3px 0 var(--blue);
+      }
+      .row.pending-remove {
+        box-shadow: inset 3px 0 var(--red);
+      }
+      .thumb {
+        width: 38px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #13251e;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 1000;
+        cursor: pointer;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .title {
+        min-width: 0;
+        cursor: pointer;
+      }
+      .code {
+        color: var(--accent);
+        font-size: 10px;
+        font-weight: 950;
+      }
+      .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 720;
+      }
+      .tags {
+        display: flex;
+        gap: 4px;
+        margin-top: 3px;
+      }
+      .tag {
+        padding: 2px 5px;
+        border-radius: 999px;
+        background: #193127;
+        color: var(--muted);
+        font-size: 8px;
+        font-weight: 900;
+      }
+      .tag.pending-add {
+        background: #55a7ff26;
+        color: var(--blue);
+      }
+      .tag.pending-remove {
+        background: #ff6d7726;
+        color: var(--red);
+      }
+      .quantity {
+        display: grid;
+        grid-template-columns: 28px 30px 28px;
+        gap: 3px;
+        justify-content: center;
+        align-items: center;
+      }
+      .step {
+        width: 28px;
+        min-width: 28px;
+        height: 30px;
+        min-height: 30px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .step.add-action,
+      .step.remove-action {
+        background: transparent;
+      }
+      .step.add-action:hover,
+      .step.add-action:focus-visible {
+        background: #55a7ff24;
+      }
+      .step.remove-action:hover,
+      .step.remove-action:focus-visible {
+        background: #ff6d7724;
+      }
+      .num {
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #081510;
+        color: var(--text);
+        font-weight: 900;
+        font-variant-numeric: tabular-nums;
+      }
+      .collection.tiles {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+      }
+      .tiles .thead {
+        display: none;
+      }
+      .tiles #list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+        gap: 9px;
+      }
+      .tiles .row {
+        min-width: 0;
+        min-height: 220px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 94px;
+        grid-template-rows: 142px auto;
+        gap: 7px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        background: var(--panel);
+      }
+      .tiles .thumb {
+        grid-column: 1/-1;
+        grid-row: 1;
+        width: 100%;
+        height: 142px;
+      }
+      .tiles .title {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: center;
+      }
+      .tiles .name {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+      .tiles .quantity {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .more {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        display: none;
+        place-items: center;
+        padding: 14px;
+        background: #000b;
+        backdrop-filter: blur(6px);
+      }
+      .backdrop.open {
+        display: grid;
+      }
+      .modal {
+        width: min(680px, 100%);
+        max-height: min(84vh, 760px);
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .modal.compact {
+        width: min(500px, 100%);
+      }
+      .mhead,
+      .mfoot {
+        padding: 12px;
+      }
+      .mhead {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: start;
+        border-bottom: 1px solid var(--line);
+      }
+      .mfoot {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        border-top: 1px solid var(--line);
+      }
+      .mhead h2 {
+        margin: 0;
+        font-size: 16px;
+      }
+      .sub {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .confirm-message {
+        margin: 0;
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .mbody {
+        overflow: auto;
+        padding: 12px;
+      }
+      .change-list,
+      .history-list,
+      .trade-results {
+        display: grid;
+        gap: 7px;
+      }
+      .change,
+      .history-card,
+      .trade-row {
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: #0a1712;
+      }
+      .change {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 8px;
+        align-items: center;
+      }
+      .change-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 750;
+      }
+      .change-meta,
+      .history-meta,
+      .trade-row span {
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .change.delta-add {
+        box-shadow: inset 3px 0 var(--blue);
+      }
+      .change.delta-remove {
+        box-shadow: inset 3px 0 var(--red);
+      }
+      .change-value {
+        font-weight: 900;
+      }
+      .change-remove {
+        min-width: 34px;
+        min-height: 30px;
+        padding: 5px 8px;
+        font-size: 11px;
+        font-weight: 850;
+      }
+      .change-value.delta-add {
+        color: var(--blue);
+      }
+      .change-value.delta-remove {
+        color: var(--red);
+      }
+      .history-card summary {
+        cursor: pointer;
+        font-weight: 850;
+      }
+      .history-details {
+        display: grid;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .history-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+      }
+      .trade-grid,
+      .trade-section {
+        display: grid;
+        gap: 8px;
+      }
+      .trade-grid {
+        gap: 14px;
+      }
+      .trade-label {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+      .button-row,
+      .trade-section-head {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .trade-section-head {
+        justify-content: space-between;
+      }
+      .trade-status {
+        min-height: 15px;
+        margin: 0;
+      }
+      .trade-summary {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .trade-stat {
+        display: grid;
+        gap: 3px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: #07120e;
+      }
+      .trade-stat.trade-receive {
+        border-color: #55a7ff55;
+        box-shadow: inset 3px 0 var(--blue);
+      }
+      .trade-stat.trade-give {
+        border-color: #ff6d7755;
+        box-shadow: inset 3px 0 var(--red);
+      }
+      .trade-stat b {
+        font-size: 18px;
+      }
+      .trade-stat.trade-receive b,
+      .trade-receive .trade-label {
+        color: var(--blue);
+      }
+      .trade-stat.trade-give b,
+      .trade-give .trade-label {
+        color: var(--red);
+      }
+      .trade-stat span,
+      .trade-note {
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .trade-note {
+        margin: 0;
+        line-height: 1.4;
+      }
+      button.trade-row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        padding: 9px 10px;
+        color: var(--text);
+        text-align: left;
+        white-space: normal;
+      }
+      button.trade-row:hover,
+      button.trade-row:focus-visible {
+        border-color: rgba(32, 217, 130, 0.65);
+        color: var(--text);
+        outline: none;
+      }
+      button.trade-row.trade-receive.selected {
+        border-color: #55a7ffb8;
+        background: #55a7ff1a;
+      }
+      button.trade-row.trade-give.selected {
+        border-color: #ff6d77b8;
+        background: #ff6d771a;
+      }
+      .trade-row b,
+      .trade-row span {
+        display: block;
+      }
+      .trade-row span {
+        margin-top: 3px;
+      }
+      .trade-choice {
+        min-width: 68px;
+        padding: 5px 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 850;
+        text-align: center;
+      }
+      .trade-row.trade-receive.selected .trade-choice {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: #03101d;
+      }
+      .trade-row.trade-give.selected .trade-choice {
+        border-color: var(--red);
+        background: var(--red);
+        color: #210307;
+      }
+      .trade-small-button {
+        min-height: 27px;
+        padding: 5px 8px;
+        font-size: 10px;
+      }
+      @media (max-width: 430px) {
+        .trade-summary {
+          grid-template-columns: 1fr;
+        }
+      }
+      .image-modal {
+        grid-template-rows: auto minmax(0, 1fr);
+      }
+      .image-stage {
+        position: relative;
+        min-height: 320px;
+        overflow: hidden;
+        padding: 0;
+        background: #020806;
+        touch-action: pan-y;
+        user-select: none;
+        cursor: grab;
+      }
+      .image-stage.dragging {
+        cursor: grabbing;
+      }
+      .image-slide {
+        width: 100%;
+        height: 100%;
+        min-height: 320px;
+        display: grid;
+        place-items: center;
+        padding: 12px;
+        will-change: transform, opacity;
+      }
+      .image-slide img {
+        max-width: 100%;
+        max-height: 68vh;
+        object-fit: contain;
+        pointer-events: none;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0));
+        z-index: 200;
+        max-width: calc(100vw - 24px);
+        padding: 9px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #10221b;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        transform: translate(-50%, 12px);
+        pointer-events: none;
+        transition: 0.18s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .version {
+        position: fixed;
+        right: 7px;
+        bottom: 4px;
+        color: #91aa9f52;
+        font-size: 8px;
+        pointer-events: none;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 620px) {
+        .shell {
+          padding-inline: 9px;
+        }
+        .meta {
+          display: none;
+        }
+        .controls {
+          grid-template-columns: minmax(0, 1fr) auto auto auto;
+          gap: 5px;
+        }
+        .thead,
+        .row {
+          grid-template-columns: 38px minmax(0, 1fr) 88px;
+          gap: 6px;
+        }
+        .row {
+          padding-inline: 6px;
+        }
+        .quantity {
+          grid-template-columns: 26px 28px 26px;
+          gap: 2px;
+        }
+        .step {
+          width: 26px;
+          min-width: 26px;
+        }
+        .backdrop {
+          padding: 8px;
+        }
+        .modal {
+          max-height: 90vh;
+        }
+      }
+      @media (max-width: 370px) {
+        .actions {
+          gap: 4px;
+        }
+        .icon {
+          width: 34px;
+          min-width: 34px;
+        }
+        .tiles #list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 7px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="shell">
+        <div class="head">
+          <div class="brand">
+            <img
+              class="mark"
+              src="data:image/png;base64,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"
+              width="136"
+              height="136"
+              alt="Kia&#39;s Kollekt logo"
+            />
+            <div>
+              <h1>Kia's Kollekt</h1>
+              <div id="meta" class="meta">No checklist loaded</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button
+              id="cartOpen"
+              class="icon"
+              title="Pending changes"
+              aria-label="Pending changes"
+            >
+              🛒<span id="cartBadge" class="badge" hidden>0</span>
+            </button>
+            <button
+              id="historyOpen"
+              class="icon"
+              title="History"
+              aria-label="History"
+            >
+              ↶
+            </button>
+            <button id="menuOpen" class="icon" title="Menu" aria-label="Menu">
+              ☰
+            </button>
+          </div>
+        </div>
+        <div class="search-wrap">
+          <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="Search stickers"
+            autocomplete="off"
+            spellcheck="false"
+          /><button
+            id="searchClear"
+            class="search-clear"
+            type="button"
+            aria-label="Clear search"
+            title="Clear search"
+            hidden
+          >
+            ×
+          </button>
+        </div>
+        <div class="controls">
+          <button id="filterToggle">Filters</button>
+          <div class="segments">
+            <button id="sortAlbum" class="on">Album</button
+            ><button id="sortName">A–Z</button>
+          </div>
+          <div class="segments">
+            <button id="viewList" class="on">List</button
+            ><button id="viewTiles">Tiles</button>
+          </div>
+          <button
+            id="exportTxt"
+            class="export-visible"
+            type="button"
+            title="Download visible list"
+            aria-label="Download visible list"
+            disabled
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3Zm-6 15h14v2H5v-2Z" />
+            </svg>
+          </button>
+        </div>
+        <div id="filters" class="filters"></div>
+      </div>
+    </header>
+    <main class="shell">
+      <div id="setup" class="setup">
+        <b>Load your sticker checklist</b>Open the menu and choose a TXT
+        checklist. Existing progress is matched by sticker code.
+      </div>
+      <section id="collection" class="collection" hidden>
+        <div class="thead">
+          <span>Img</span><span>Sticker</span><span>Count</span>
+        </div>
+        <div id="list"></div>
+      </section>
+      <div id="empty" class="empty" hidden>
+        <b>No matching stickers</b>Change the search or filters.
+      </div>
+      <button id="more" class="more" hidden>Show more</button>
+    </main>
+    <div id="menuPop" class="pop" hidden>
+      <div class="pop-title">Collection</div>
+      <div class="pop-grid">
+        <button id="loadChecklist" class="menu-btn">
+          <span class="menu-ico">▤</span
+          ><span
+            ><b>Load checklist</b><small>Choose the album TXT file</small></span
+          >
+        </button>
+        <button id="loadImages" class="menu-btn">
+          <span class="menu-ico">▧</span
+          ><span
+            ><b>Load images</b
+            ><small>Choose the sticker image folder</small></span
+          >
+        </button>
+        <button id="saveBackup" class="menu-btn">
+          <span class="menu-ico">⇩</span
+          ><span
+            ><b>Save backup</b><small>Download collection JSON</small></span
+          >
+        </button>
+        <button id="loadBackup" class="menu-btn">
+          <span class="menu-ico">⇧</span
+          ><span
+            ><b>Restore backup</b><small>Open a collection JSON</small></span
+          >
+        </button>
+        <button id="tradeOpen" class="menu-btn">
+          <span class="menu-ico">⇄</span
+          ><span
+            ><b>Trade dupes</b
+            ><small>Compare and add a trade to the cart</small></span
+          >
+        </button>
+        <button id="resetApp" class="menu-btn danger-btn">
+          <span class="menu-ico">↺</span
+          ><span
+            ><b>Reset app</b
+            ><small
+              >Clear collection, history, images, and cached data</small
+            ></span
+          >
+        </button>
+      </div>
+    </div>
+    <input
+      id="checklistFile"
+      type="file"
+      accept="text/plain,.txt"
+      hidden
+    /><input
+      id="imageFolder"
+      type="file"
+      accept="image/*"
+      webkitdirectory
+      multiple
+      hidden
+    /><input
+      id="backupFile"
+      type="file"
+      accept="application/json,.json"
+      hidden
+    />
+    <div id="cartModal" class="backdrop" aria-hidden="true">
+      <section class="modal compact">
+        <header class="mhead">
+          <div>
+            <h2>Pending changes</h2>
+            <p id="cartSummary" class="sub"></p>
+          </div>
+          <button data-close="cartModal">Close</button>
+        </header>
+        <div class="mbody"><div id="cartList" class="change-list"></div></div>
+        <footer class="mfoot">
+          <button id="clearCart" class="remove-action">Clear cart</button
+          ><button id="commit" class="primary">Commit</button>
+        </footer>
+      </section>
+    </div>
+    <div id="confirmModal" class="backdrop" aria-hidden="true">
+      <section
+        class="modal compact"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirmTitle"
+      >
+        <header class="mhead">
+          <div>
+            <h2 id="confirmTitle">Confirm</h2>
+          </div>
+          <button id="confirmClose" type="button">Close</button>
+        </header>
+        <div class="mbody">
+          <p id="confirmMessage" class="confirm-message"></p>
+        </div>
+        <footer class="mfoot">
+          <button id="confirmCancel" type="button">Cancel</button>
+          <button id="confirmAccept" type="button" class="remove-action">
+            Confirm
+          </button>
+        </footer>
+      </section>
+    </div>
+    <div id="historyModal" class="backdrop" aria-hidden="true">
+      <section class="modal">
+        <header class="mhead">
+          <div>
+            <h2>History</h2>
+            <p class="sub">Open a commit to review or stage a revert.</p>
+          </div>
+          <button data-close="historyModal">Close</button>
+        </header>
+        <div class="mbody">
+          <div id="historyList" class="history-list"></div>
+        </div>
+        <footer class="mfoot">
+          <button data-close="historyModal">Done</button>
+        </footer>
+      </section>
+    </div>
+    <div id="tradeModal" class="backdrop" aria-hidden="true">
+      <section class="modal">
+        <header class="mhead">
+          <div>
+            <h2>Trade dupes</h2>
+            <p class="sub">
+              Share your code, then paste theirs to see matches.
+            </p>
+          </div>
+          <button data-close="tradeModal">Close</button>
+        </header>
+        <div class="mbody">
+          <div class="trade-grid">
+            <section class="trade-section">
+              <span class="trade-label">Your share code</span>
+              <textarea id="myTrade" readonly></textarea>
+              <div class="button-row">
+                <button id="copyTrade">Copy code</button>
+              </div>
+            </section>
+            <section class="trade-section">
+              <span class="trade-label">Their share code</span>
+              <textarea
+                id="theirTrade"
+                placeholder="Paste their share code"
+              ></textarea>
+              <div class="button-row">
+                <button id="pasteTrade">Paste</button>
+                <button id="compareTrade" class="primary">Compare</button>
+              </div>
+            </section>
+            <p id="tradeStatus" class="sub trade-status"></p>
+            <div id="tradeResults" class="trade-results"></div>
+          </div>
+        </div>
+        <footer class="mfoot">
+          <button id="clearTradeSelection" disabled>Clear selection</button>
+          <button id="stageTrade" class="primary" disabled>
+            Add trade to cart
+          </button>
+          <button data-close="tradeModal">Done</button>
+        </footer>
+      </section>
+    </div>
+    <div id="imageModal" class="backdrop" aria-hidden="true">
+      <section class="modal image-modal">
+        <header class="mhead">
+          <div>
+            <h2 id="imageTitle">Sticker</h2>
+            <p id="imageCode" class="sub"></p>
+          </div>
+          <button data-close="imageModal">Close</button>
+        </header>
+        <div
+          id="imageStage"
+          class="mbody image-stage"
+          aria-label="Swipe left or right to browse stickers"
+        >
+          <div id="imageSlide" class="image-slide">
+            <img id="imageView" alt="" hidden />
+            <div id="imageFallback">No saved image for this sticker.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="appVersion" class="version"></div>
+    <script>
+      "use strict";
+
+      const APP_VERSION = "5.10";
+      const STATE_KEY = "kiasKollekt.compact.v1";
+      const DATABASE_NAME = "kiasKollekt.v1";
+      const DATABASE_VERSION = 2;
+      const IMAGE_STORE = "images";
+      const STATE_STORE = "state";
+      const STATE_ID = "app";
+      const PAGE_SIZE = 140;
+      const MAX_HISTORY = 30;
+      const IMAGE_CACHE_LIMIT = 48;
+      const SAVE_DELAY_MS = 220;
+
+      const FILTERS = [
+        ["need", "Need"],
+        ["have", "Have"],
+        ["dupes", "Dupes"],
+        ["teams", "Teams"],
+        ["players", "Players"],
+        ["foil", "Foil"],
+        ["cc", "CC"],
+        ["special", "Special"],
+      ];
+
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+      const elements = {
+        meta: $("#meta"),
+        cartOpen: $("#cartOpen"),
+        cartBadge: $("#cartBadge"),
+        historyOpen: $("#historyOpen"),
+        menuOpen: $("#menuOpen"),
+        search: $("#search"),
+        searchClear: $("#searchClear"),
+        filterToggle: $("#filterToggle"),
+        filters: $("#filters"),
+        sortAlbum: $("#sortAlbum"),
+        sortName: $("#sortName"),
+        viewList: $("#viewList"),
+        viewTiles: $("#viewTiles"),
+        exportTxt: $("#exportTxt"),
+        setup: $("#setup"),
+        collection: $("#collection"),
+        list: $("#list"),
+        empty: $("#empty"),
+        more: $("#more"),
+        menuPop: $("#menuPop"),
+        loadChecklist: $("#loadChecklist"),
+        loadImages: $("#loadImages"),
+        saveBackup: $("#saveBackup"),
+        loadBackup: $("#loadBackup"),
+        tradeOpen: $("#tradeOpen"),
+        resetApp: $("#resetApp"),
+        checklistFile: $("#checklistFile"),
+        imageFolder: $("#imageFolder"),
+        backupFile: $("#backupFile"),
+        cartModal: $("#cartModal"),
+        cartSummary: $("#cartSummary"),
+        cartList: $("#cartList"),
+        clearCart: $("#clearCart"),
+        commit: $("#commit"),
+        confirmModal: $("#confirmModal"),
+        confirmTitle: $("#confirmTitle"),
+        confirmMessage: $("#confirmMessage"),
+        confirmClose: $("#confirmClose"),
+        confirmCancel: $("#confirmCancel"),
+        confirmAccept: $("#confirmAccept"),
+        historyModal: $("#historyModal"),
+        historyList: $("#historyList"),
+        tradeModal: $("#tradeModal"),
+        myTrade: $("#myTrade"),
+        theirTrade: $("#theirTrade"),
+        copyTrade: $("#copyTrade"),
+        pasteTrade: $("#pasteTrade"),
+        compareTrade: $("#compareTrade"),
+        tradeStatus: $("#tradeStatus"),
+        tradeResults: $("#tradeResults"),
+        clearTradeSelection: $("#clearTradeSelection"),
+        stageTrade: $("#stageTrade"),
+        imageModal: $("#imageModal"),
+        imageStage: $("#imageStage"),
+        imageSlide: $("#imageSlide"),
+        imageTitle: $("#imageTitle"),
+        imageCode: $("#imageCode"),
+        imageView: $("#imageView"),
+        imageFallback: $("#imageFallback"),
+        toast: $("#toast"),
+        appVersion: $("#appVersion"),
+      };
+
+      elements.appVersion.textContent = `v${APP_VERSION}`;
+
+      let app = createBlankState();
+      let itemIndex = new Map();
+      let visibleItems = [];
+      let pageSize = PAGE_SIZE;
+
+      let imageKeys = new Set();
+      let imageCache = new Map();
+      let imageMutationSerial = 0;
+      let imageLoads = new Map();
+      let thumbnailObserver = null;
+      let currentImageCode = "";
+      let imagePosition = -1;
+      let imageRenderToken = 0;
+
+      let toastTimer = 0;
+      let imageAnimationToken = 0;
+      let swipePointerId = null;
+      let swipeStartX = 0;
+      let swipeStartY = 0;
+      let swipeDistanceX = 0;
+      let swipeStartedAt = 0;
+      let swipeDragging = false;
+
+      let tradeComparison = null;
+      let tradeSelection = {
+        receive: new Set(),
+        give: new Set(),
+      };
+
+      let confirmationResolver = null;
+
+      let storageEpoch = 0;
+      let mutationSerial = 0;
+      let saveTimer = 0;
+      let stateWriteQueue = Promise.resolve(true);
+      let dirtyState = false;
+      let resolveAppReady;
+      const appReady = new Promise((resolve) => {
+        resolveAppReady = resolve;
+      });
+
+      function cleanText(value) {
+        return String(value ?? "")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function searchableText(value) {
+        return cleanText(value)
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>'"]/g, (character) => {
+          const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;",
+          };
+          return entities[character];
+        });
+      }
+
+      function extractStickerCode(value) {
+        const firstToken = cleanText(value).split(" ")[0] || "";
+        return /^(?:00|[A-Z]{2,5}\d{1,3})$/i.test(firstToken)
+          ? firstToken.toUpperCase()
+          : "";
+      }
+
+      function createItem(value) {
+        const title = cleanText(
+          typeof value === "string" ? value : value?.title,
+        );
+        const code = extractStickerCode(title);
+        return code ? { code, title } : null;
+      }
+
+      function normalizeItems(values) {
+        const uniqueItems = new Map();
+
+        for (const value of Array.isArray(values) ? values : []) {
+          const item = createItem(value);
+          if (item && !uniqueItems.has(item.code)) {
+            uniqueItems.set(item.code, item);
+          }
+        }
+
+        return [...uniqueItems.values()];
+      }
+
+      function clampCopies(value) {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isFinite(parsed)) {
+          return 0;
+        }
+        return Math.max(0, Math.min(99, parsed));
+      }
+
+      function createUniqueId(prefix = "id") {
+        return (
+          globalThis.crypto?.randomUUID?.() ||
+          `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+        );
+      }
+
+      function createBlankState() {
+        return {
+          items: [],
+          copies: {},
+          draft: {},
+          filters: [],
+          sort: "album",
+          view: "list",
+          history: [],
+          rev: 0,
+        };
+      }
+
+      function normalizeCopyMap(rawMap, items) {
+        const validCodes = new Set(items.map((item) => item.code));
+        const copies = {};
+
+        for (const [rawCode, rawCount] of Object.entries(rawMap || {})) {
+          const code = String(rawCode || "").toUpperCase();
+          const count = clampCopies(rawCount);
+          if (validCodes.has(code) && count > 0) {
+            copies[code] = count;
+          }
+        }
+
+        return copies;
+      }
+
+      function normalizeHistory(rawHistory, items) {
+        const validCodes = new Set(items.map((item) => item.code));
+        const titleByCode = new Map(
+          items.map((item) => [item.code, item.title]),
+        );
+        const usedIds = new Set();
+        const history = [];
+
+        for (const entry of Array.isArray(rawHistory) ? rawHistory : []) {
+          const changesByCode = new Map();
+
+          for (const change of Array.isArray(entry?.changes)
+            ? entry.changes
+            : []) {
+            const code = String(change?.code || "").toUpperCase();
+            const before = clampCopies(change?.before);
+            const after = clampCopies(change?.after);
+
+            if (!validCodes.has(code) || before === after) {
+              continue;
+            }
+
+            const existing = changesByCode.get(code);
+            if (existing) {
+              existing.after = after;
+              if (existing.before === existing.after) {
+                changesByCode.delete(code);
+              }
+            } else {
+              changesByCode.set(code, {
+                code,
+                before,
+                after,
+                title: titleByCode.get(code),
+              });
+            }
+          }
+
+          const changes = [...changesByCode.values()];
+          if (!changes.length) {
+            continue;
+          }
+
+          let id = cleanText(entry?.id) || createUniqueId("history");
+          while (usedIds.has(id)) {
+            id = createUniqueId("history");
+          }
+          usedIds.add(id);
+
+          history.push({
+            id,
+            at: cleanText(entry?.at) || new Date().toISOString(),
+            title: cleanText(entry?.title) || "Commit",
+            changes,
+          });
+        }
+
+        return history.slice(0, MAX_HISTORY);
+      }
+
+      function normalizeDraft(rawDraft, copies, items) {
+        const validCodes = new Set(items.map((item) => item.code));
+        const draft = {};
+
+        for (const [rawCode, rawCount] of Object.entries(rawDraft || {})) {
+          const code = String(rawCode || "").toUpperCase();
+          const count = clampCopies(rawCount);
+          if (
+            validCodes.has(code) &&
+            count !== clampCopies(copies[code])
+          ) {
+            draft[code] = count;
+          }
+        }
+
+        return draft;
+      }
+
+      function normalizeFilters(rawFilters) {
+        const validFilters = new Set(FILTERS.map(([id]) => id));
+        return [...new Set(Array.isArray(rawFilters) ? rawFilters : [])].filter(
+          (filter) => validFilters.has(filter),
+        );
+      }
+
+      function normalizeState(rawState) {
+        const source = rawState || createBlankState();
+        const items = normalizeItems(source.items);
+        const copies = normalizeCopyMap(source.copies, items);
+
+        return {
+          items,
+          copies,
+          draft: normalizeDraft(source.draft, copies, items),
+          filters: normalizeFilters(source.filters),
+          sort: source.sort === "name" ? "name" : "album",
+          view: source.view === "tiles" ? "tiles" : "list",
+          history: normalizeHistory(source.history, items),
+          rev: Number.isFinite(Number(source.rev))
+            ? Math.max(0, Number(source.rev))
+            : 0,
+        };
+      }
+
+      function decodeBackup(rawBackup) {
+        if (!Array.isArray(rawBackup) || !rawBackup.length) {
+          throw new Error("This is not a Kia's Kollekt backup file.");
+        }
+
+        const items = [];
+        const copies = {};
+        const usedCodes = new Set();
+
+        rawBackup.forEach((row, index) => {
+          if (!row || typeof row !== "object" || Array.isArray(row)) {
+            throw new Error(`Backup row ${index + 1} is invalid.`);
+          }
+
+          const item = createItem(row);
+          if (!item) {
+            throw new Error(`Backup row ${index + 1} has an invalid title.`);
+          }
+          if (usedCodes.has(item.code)) {
+            throw new Error(`Backup contains duplicate sticker ${item.code}.`);
+          }
+          if (
+            !Number.isInteger(row.count) ||
+            row.count < 0 ||
+            row.count > 99
+          ) {
+            throw new Error(
+              `Backup row ${index + 1} has an invalid count.`,
+            );
+          }
+
+          usedCodes.add(item.code);
+          items.push(item);
+          if (row.count > 0) {
+            copies[item.code] = row.count;
+          }
+        });
+
+        return { items, copies };
+      }
+
+      function cloneState(state) {
+        return JSON.parse(JSON.stringify(normalizeState(state)));
+      }
+
+      function readLocalJson(key) {
+        try {
+          const stored = localStorage.getItem(key);
+          return stored ? JSON.parse(stored) : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function readLocalCandidate() {
+        const storedState = readLocalJson(STATE_KEY);
+        return storedState ? normalizeState(storedState) : null;
+      }
+
+      function writeLocalState(snapshot) {
+        try {
+          localStorage.setItem(STATE_KEY, JSON.stringify(snapshot));
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      function openDatabase() {
+        if (!("indexedDB" in window)) {
+          return Promise.reject(new Error("IndexedDB is unavailable."));
+        }
+
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
+          let settled = false;
+          const timeout = window.setTimeout(() => {
+            settled = true;
+            reject(new Error("Browser storage timed out."));
+          }, 4000);
+
+          request.onupgradeneeded = () => {
+            const database = request.result;
+            if (!database.objectStoreNames.contains(IMAGE_STORE)) {
+              database.createObjectStore(IMAGE_STORE, { keyPath: "id" });
+            }
+            if (!database.objectStoreNames.contains(STATE_STORE)) {
+              database.createObjectStore(STATE_STORE, { keyPath: "id" });
+            }
+          };
+
+          request.onsuccess = () => {
+            window.clearTimeout(timeout);
+            if (settled) {
+              request.result.close();
+              return;
+            }
+            settled = true;
+            resolve(request.result);
+          };
+
+          request.onerror = () => {
+            window.clearTimeout(timeout);
+            if (!settled) {
+              settled = true;
+              reject(
+                request.error || new Error("Browser storage could not open."),
+              );
+            }
+          };
+
+          request.onblocked = () => {
+            window.clearTimeout(timeout);
+            if (!settled) {
+              settled = true;
+              reject(
+                new Error(
+                  "Browser storage is busy. Close other copies of the app and try again.",
+                ),
+              );
+            }
+          };
+        });
+      }
+
+      function transactionDone(transaction) {
+        return new Promise((resolve, reject) => {
+          transaction.oncomplete = () => resolve();
+          transaction.onerror = () =>
+            reject(
+              transaction.error || new Error("Storage transaction failed."),
+            );
+          transaction.onabort = () =>
+            reject(
+              transaction.error ||
+                new Error("Storage transaction was aborted."),
+            );
+        });
+      }
+
+      function requestResult(request) {
+        return new Promise((resolve, reject) => {
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () =>
+            reject(request.error || new Error("Storage request failed."));
+        });
+      }
+
+      async function readStateFromDatabase() {
+        const database = await openDatabase();
+        try {
+          const transaction = database.transaction(STATE_STORE, "readonly");
+          const done = transactionDone(transaction);
+          const result = await requestResult(
+            transaction.objectStore(STATE_STORE).get(STATE_ID),
+          );
+          await done;
+          return result?.value ? normalizeState(result.value) : null;
+        } finally {
+          database.close();
+        }
+      }
+
+      async function writeStateToDatabase(snapshot, epoch) {
+        if (epoch !== storageEpoch) {
+          return false;
+        }
+
+        const database = await openDatabase();
+        try {
+          if (epoch !== storageEpoch) {
+            return false;
+          }
+
+          const transaction = database.transaction(STATE_STORE, "readwrite");
+          const store = transaction.objectStore(STATE_STORE);
+          const current = await requestResult(store.get(STATE_ID));
+
+          if (epoch !== storageEpoch) {
+            transaction.abort();
+            return false;
+          }
+
+          const currentRevision = Number(current?.value?.rev) || 0;
+          if (currentRevision <= (Number(snapshot.rev) || 0)) {
+            store.put({
+              id: STATE_ID,
+              value: snapshot,
+              updatedAt: new Date().toISOString(),
+            });
+          }
+
+          await transactionDone(transaction);
+          return true;
+        } finally {
+          database.close();
+        }
+      }
+
+      async function persistStateNow({ showError = true } = {}) {
+        window.clearTimeout(saveTimer);
+        saveTimer = 0;
+
+        if (!dirtyState) {
+          return true;
+        }
+
+        dirtyState = false;
+        app.rev = Math.max(0, Number(app.rev) || 0) + 1;
+        const snapshot = cloneState(app);
+        const epoch = storageEpoch;
+        const localSaved = writeLocalState(snapshot);
+
+        stateWriteQueue = stateWriteQueue
+          .catch(() => false)
+          .then(() => writeStateToDatabase(snapshot, epoch))
+          .catch(() => false);
+
+        const databaseSaved = await stateWriteQueue;
+        const saved = localSaved || databaseSaved;
+
+        if (!saved) {
+          dirtyState = true;
+          if (showError) {
+            showToast("Save failed. Browser storage is unavailable or full.");
+          }
+        }
+
+        return saved;
+      }
+
+      function scheduleStateSave(delay = SAVE_DELAY_MS) {
+        dirtyState = true;
+        window.clearTimeout(saveTimer);
+        saveTimer = window.setTimeout(() => {
+          persistStateNow().catch(() => {
+            dirtyState = true;
+          });
+        }, delay);
+      }
+
+      function saveStateImmediately(options = {}) {
+        dirtyState = true;
+        return persistStateNow(options);
+      }
+
+      function writeLatestStateBeforeExit() {
+        if (!dirtyState) {
+          return;
+        }
+
+        window.clearTimeout(saveTimer);
+        saveTimer = 0;
+        app.rev = Math.max(0, Number(app.rev) || 0) + 1;
+        const snapshot = cloneState(app);
+        writeLocalState(snapshot);
+        dirtyState = false;
+      }
+
+      function markMutation() {
+        mutationSerial += 1;
+      }
+
+      function rebuildIndex() {
+        itemIndex = new Map(
+          app.items.map((item, albumIndex) => [
+            item.code,
+            { ...item, albumIndex },
+          ]),
+        );
+      }
+
+      function getCount(stickerCode) {
+        return Object.prototype.hasOwnProperty.call(app.draft, stickerCode)
+          ? clampCopies(app.draft[stickerCode])
+          : clampCopies(app.copies[stickerCode]);
+      }
+
+      function itemKind(item) {
+        const title = searchableText(item.title);
+        if (item.code === "00" || item.code.startsWith("FWC")) {
+          return "special";
+        }
+        if (
+          item.code.startsWith("CC") ||
+          title.includes("coca-cola") ||
+          title.includes("coca cola")
+        ) {
+          return "cc";
+        }
+        if (title.includes("team logo") || title.includes("team photo")) {
+          return "teams";
+        }
+        return "players";
+      }
+
+      function matchesFilter(item, filter) {
+        const copyCount = getCount(item.code);
+
+        switch (filter) {
+          case "need":
+            return copyCount === 0;
+          case "have":
+            return copyCount > 0;
+          case "dupes":
+            return copyCount > 1;
+          case "foil":
+            return /\bfoil\b/i.test(item.title);
+          default:
+            return itemKind(item) === filter;
+        }
+      }
+
+      function getFilteredItems() {
+        const query = searchableText(elements.search.value);
+        const quantityFilters = app.filters.filter((filter) =>
+          ["need", "have", "dupes"].includes(filter),
+        );
+        const categoryFilters = app.filters.filter(
+          (filter) => !["need", "have", "dupes"].includes(filter),
+        );
+
+        let filtered = app.items.filter((item) => {
+          const matchesSearch =
+            !query ||
+            searchableText(`${item.code} ${item.title}`).includes(query);
+          const matchesQuantity =
+            !quantityFilters.length ||
+            quantityFilters.some((filter) => matchesFilter(item, filter));
+          const matchesCategory =
+            !categoryFilters.length ||
+            categoryFilters.some((filter) => matchesFilter(item, filter));
+
+          return matchesSearch && matchesQuantity && matchesCategory;
+        });
+
+        if (app.sort === "name") {
+          filtered = filtered.slice().sort((first, second) =>
+            first.title.localeCompare(second.title, undefined, {
+              sensitivity: "base",
+            }),
+          );
+        }
+
+        return filtered;
+      }
+
+      function getTotalDupeCopies() {
+        let totalDupeCopies = 0;
+
+        for (const item of app.items) {
+          totalDupeCopies += Math.max(0, getCount(item.code) - 1);
+        }
+
+        return totalDupeCopies;
+      }
+
+      function calculateFilterCounts() {
+        const counts = Object.fromEntries(FILTERS.map(([id]) => [id, 0]));
+
+        for (const item of app.items) {
+          const copyCount = getCount(item.code);
+          if (copyCount === 0) {
+            counts.need += 1;
+          } else {
+            counts.have += 1;
+          }
+          if (copyCount > 1) {
+            counts.dupes += copyCount - 1;
+          }
+          if (/\bfoil\b/i.test(item.title)) {
+            counts.foil += 1;
+          }
+          counts[itemKind(item)] += 1;
+        }
+
+        return counts;
+      }
+
+      function renderFilters() {
+        const counts = calculateFilterCounts();
+
+        elements.filters.innerHTML = FILTERS.map(([id, label]) => {
+          const active = app.filters.includes(id) ? " on" : "";
+          return `<button class="pill${active}" data-filter="${id}">${label}<span class="count">${counts[id]}</span></button>`;
+        }).join("");
+
+        elements.filterToggle.textContent = app.filters.length
+          ? `Filters · ${app.filters.length}`
+          : "Filters";
+      }
+
+      function itemTags(item) {
+        const tags = [];
+        if (/\bfoil\b/i.test(item.title)) {
+          tags.push({ label: "FOIL", tone: "" });
+        }
+
+        if (Object.prototype.hasOwnProperty.call(app.draft, item.code)) {
+          const committedCount = clampCopies(app.copies[item.code]);
+          const pendingDelta = getCount(item.code) - committedCount;
+          tags.push({
+            label: `PENDING ${signedNumber(pendingDelta)}`,
+            tone: pendingDelta > 0 ? "pending-add" : "pending-remove",
+          });
+        }
+
+        return tags;
+      }
+
+      function imageMarkup(item) {
+        const cached = imageCache.get(item.code);
+        if (cached) {
+          cached.lastUsed = Date.now();
+          return `<img src="${cached.url}" alt="" loading="lazy">`;
+        }
+        return item.code;
+      }
+
+      function renderRow(item) {
+        const copyCount = getCount(item.code);
+        const pending = Object.prototype.hasOwnProperty.call(
+          app.draft,
+          item.code,
+        );
+        const committedCount = clampCopies(app.copies[item.code]);
+        const pendingDelta = copyCount - committedCount;
+        const pendingTone = pending
+          ? pendingDelta > 0
+            ? " pending-add"
+            : " pending-remove"
+          : "";
+        const tags = itemTags(item)
+          .map(
+            (tag) =>
+              `<span class="tag${tag.tone ? ` ${tag.tone}` : ""}">${tag.label}</span>`,
+          )
+          .join("");
+        const lazyImageAttribute =
+          imageKeys.has(item.code) && !imageCache.has(item.code)
+            ? ` data-image-code="${item.code}"`
+            : "";
+
+        return `<article class="row${copyCount > 0 ? " owned" : ""}${pendingTone}" data-code="${item.code}">
+    <div class="thumb" data-action="image" role="button" tabindex="0" aria-label="View ${escapeHtml(item.title)}"${lazyImageAttribute}>${imageMarkup(item)}</div>
+    <div class="title" data-action="image">
+      <div class="code">${item.code}</div>
+      <div class="name">${escapeHtml(item.title.slice(item.code.length).trim())}</div>
+      ${tags ? `<div class="tags">${tags}</div>` : ""}
+    </div>
+    <div class="quantity" role="group" aria-label="Copy count for ${escapeHtml(item.title)}">
+      <button class="step remove-action" type="button" data-action="decrement" aria-label="Remove one copy"${copyCount === 0 ? " disabled" : ""}>−</button>
+      <output class="num" aria-label="${copyCount} copies">${copyCount}</output>
+      <button class="step add-action" type="button" data-action="increment" aria-label="Add one copy"${copyCount === 99 ? " disabled" : ""}>+</button>
+    </div>
+  </article>`;
+      }
+
+      function initializeThumbnailObserver() {
+        if (!("IntersectionObserver" in window)) {
+          return null;
+        }
+
+        return new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) {
+                continue;
+              }
+              const thumb = entry.target;
+              const stickerCode = thumb.dataset.imageCode;
+              thumbnailObserver.unobserve(thumb);
+              loadImageIntoThumbnail(stickerCode, thumb);
+            }
+          },
+          { rootMargin: "220px 0px" },
+        );
+      }
+
+      function observeThumbnails() {
+        if (!thumbnailObserver) {
+          const fallbackThumbs = [
+            ...elements.list.querySelectorAll(".thumb[data-image-code]"),
+          ].slice(0, 24);
+          for (const thumb of fallbackThumbs) {
+            loadImageIntoThumbnail(thumb.dataset.imageCode, thumb);
+          }
+          return;
+        }
+
+        thumbnailObserver.disconnect();
+        for (const thumb of elements.list.querySelectorAll(
+          ".thumb[data-image-code]",
+        )) {
+          thumbnailObserver.observe(thumb);
+        }
+      }
+
+      async function loadImageIntoThumbnail(stickerCode, thumb) {
+        if (!stickerCode || !thumb?.isConnected) {
+          return;
+        }
+
+        const cached = await ensureImageCached(stickerCode);
+        if (
+          !cached ||
+          !thumb.isConnected ||
+          thumb.closest(".row")?.dataset.code !== stickerCode
+        ) {
+          return;
+        }
+
+        thumb.removeAttribute("data-image-code");
+        thumb.innerHTML = `<img src="${cached.url}" alt="" loading="lazy">`;
+      }
+
+      function renderList() {
+        visibleItems = getFilteredItems();
+        const visibleCount = visibleItems.length;
+        elements.exportTxt.disabled = visibleCount === 0;
+        elements.exportTxt.title = visibleCount
+          ? `Download ${visibleCount} visible sticker${visibleCount === 1 ? "" : "s"}`
+          : "No visible stickers to download";
+        elements.exportTxt.setAttribute("aria-label", elements.exportTxt.title);
+
+        const shownItems = visibleItems.slice(0, pageSize);
+        elements.list.innerHTML = shownItems.map(renderRow).join("");
+        elements.collection.hidden = !app.items.length;
+        elements.setup.hidden = Boolean(app.items.length);
+        elements.empty.hidden =
+          !app.items.length || Boolean(visibleItems.length);
+        elements.more.hidden = shownItems.length >= visibleItems.length;
+        observeThumbnails();
+      }
+
+      function renderMeta() {
+        const total = app.items.length;
+        let owned = 0;
+        for (const item of app.items) {
+          if (getCount(item.code) > 0) {
+            owned += 1;
+          }
+        }
+
+        const totalDupeCopies = getTotalDupeCopies();
+        const pendingCount = Object.keys(app.draft).length;
+
+        elements.meta.textContent = total
+          ? `${owned}/${total} owned · ${totalDupeCopies} dupe copies`
+          : "No checklist loaded";
+        elements.cartBadge.hidden = pendingCount === 0;
+        elements.cartBadge.textContent = pendingCount;
+      }
+
+      function render(resetPage = false) {
+        if (resetPage) {
+          pageSize = PAGE_SIZE;
+        }
+
+        rebuildIndex();
+        elements.sortAlbum.classList.toggle("on", app.sort === "album");
+        elements.sortName.classList.toggle("on", app.sort === "name");
+        elements.viewList.classList.toggle("on", app.view === "list");
+        elements.viewTiles.classList.toggle("on", app.view === "tiles");
+        elements.collection.classList.toggle("tiles", app.view === "tiles");
+        renderMeta();
+        renderFilters();
+        renderList();
+      }
+
+      function updateVisibleRow(stickerCode) {
+        const item = itemIndex.get(stickerCode);
+        const existingRow = elements.list.querySelector(
+          `.row[data-code="${stickerCode}"]`,
+        );
+
+        if (!item || !existingRow) {
+          return;
+        }
+
+        existingRow.outerHTML = renderRow(item);
+        const replacement = elements.list.querySelector(
+          `.row[data-code="${stickerCode}"] .thumb[data-image-code]`,
+        );
+        if (replacement) {
+          if (thumbnailObserver) {
+            thumbnailObserver.observe(replacement);
+          } else {
+            loadImageIntoThumbnail(stickerCode, replacement);
+          }
+        }
+      }
+
+      function setDraftCount(stickerCode, requestedCount) {
+        const normalizedCode = String(stickerCode || "").toUpperCase();
+        if (!itemIndex.has(normalizedCode)) {
+          return null;
+        }
+
+        const previousCount = getCount(normalizedCode);
+        const nextCount = clampCopies(requestedCount);
+        if (nextCount === previousCount) {
+          return null;
+        }
+
+        const committedCount = clampCopies(app.copies[normalizedCode]);
+        if (nextCount === committedCount) {
+          delete app.draft[normalizedCode];
+        } else {
+          app.draft[normalizedCode] = nextCount;
+        }
+
+        return {
+          code: normalizedCode,
+          before: previousCount,
+          after: nextCount,
+        };
+      }
+
+      function quantityFilterIsActive() {
+        return app.filters.some((filter) =>
+          ["need", "have", "dupes"].includes(filter),
+        );
+      }
+
+      function refreshAfterDraftMutation(stickerCodes, updateCart = false) {
+        renderMeta();
+        renderFilters();
+
+        if (quantityFilterIsActive()) {
+          renderList();
+        } else {
+          for (const stickerCode of stickerCodes) {
+            updateVisibleRow(stickerCode);
+          }
+        }
+
+        if (updateCart) {
+          renderCart();
+        }
+      }
+
+      function stageCount(stickerCode, requestedCount) {
+        const stagedChange = setDraftCount(stickerCode, requestedCount);
+        if (!stagedChange) {
+          return;
+        }
+
+        markMutation();
+        scheduleStateSave();
+        refreshAfterDraftMutation([stagedChange.code]);
+      }
+
+      function toggleFilter(filter) {
+        app.filters = app.filters.includes(filter)
+          ? app.filters.filter((activeFilter) => activeFilter !== filter)
+          : [...app.filters, filter];
+        markMutation();
+        scheduleStateSave();
+        render(true);
+      }
+
+      function parseChecklist(rawText) {
+        return normalizeItems(
+          String(rawText || "")
+            .replace(/^\uFEFF/, "")
+            .split(/\r?\n/)
+            .map(cleanText)
+            .filter(Boolean),
+        );
+      }
+
+      async function readTextFile(file) {
+        if (!file) {
+          throw new Error("No file was selected.");
+        }
+
+        if (typeof file.text === "function") {
+          try {
+            return await file.text();
+          } catch {
+            // Fall back to FileReader for browser compatibility.
+          }
+        }
+
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ""));
+          reader.onerror = () =>
+            reject(reader.error || new Error("File could not be read."));
+          reader.readAsText(file);
+        });
+      }
+
+      function pruneStateForChecklist(checklistItems) {
+        const validCodes = new Set(checklistItems.map((item) => item.code));
+        const copies = Object.fromEntries(
+          Object.entries(app.copies)
+            .map(([stickerCode, count]) => [stickerCode, clampCopies(count)])
+            .filter(
+              ([stickerCode, count]) =>
+                validCodes.has(stickerCode) && count > 0,
+            ),
+        );
+        const draft = Object.fromEntries(
+          Object.entries(app.draft)
+            .map(([stickerCode, count]) => [stickerCode, clampCopies(count)])
+            .filter(
+              ([stickerCode, count]) =>
+                validCodes.has(stickerCode) &&
+                count !== clampCopies(copies[stickerCode]),
+            ),
+        );
+        const history = normalizeHistory(app.history, checklistItems);
+
+        return { copies, draft, history };
+      }
+
+      async function applyChecklist(checklistItems) {
+        const previousState = cloneState(app);
+        const pruned = pruneStateForChecklist(checklistItems);
+
+        app.items = checklistItems;
+        app.copies = pruned.copies;
+        app.draft = pruned.draft;
+        app.history = pruned.history;
+        markMutation();
+        closePopovers();
+        render(true);
+
+        const saved = await saveStateImmediately();
+        if (!saved) {
+          app = previousState;
+          render(true);
+          throw new Error(
+            "Checklist loaded but could not be saved in browser storage.",
+          );
+        }
+
+        showToast(`${checklistItems.length} checklist stickers saved.`);
+      }
+
+      function getChanges() {
+        return Object.entries(app.draft)
+          .map(([stickerCode, after]) => ({
+            code: stickerCode,
+            before: clampCopies(app.copies[stickerCode]),
+            after: clampCopies(after),
+            title: itemIndex.get(stickerCode)?.title || stickerCode,
+          }))
+          .filter((change) => change.before !== change.after)
+          .sort(
+            (first, second) =>
+              (itemIndex.get(first.code)?.albumIndex ?? 99999) -
+              (itemIndex.get(second.code)?.albumIndex ?? 99999),
+          );
+      }
+
+      function countLabel(count) {
+        if (count === 0) {
+          return "Need";
+        }
+        return count === 1 ? "1 copy" : `${count} copies`;
+      }
+
+      function signedNumber(value) {
+        return value > 0 ? `+${value}` : String(value);
+      }
+
+      function deltaClass(before, after) {
+        if (after > before) {
+          return "delta-add";
+        }
+        if (after < before) {
+          return "delta-remove";
+        }
+        return "";
+      }
+
+      function renderCart() {
+        const changes = getChanges();
+        elements.cartSummary.textContent = changes.length
+          ? `${changes.length} staged change${changes.length === 1 ? "" : "s"}`
+          : "No staged changes.";
+        elements.commit.disabled = changes.length === 0;
+        elements.clearCart.disabled = changes.length === 0;
+        elements.cartList.innerHTML = changes.length
+          ? changes
+              .map((change) => {
+                const tone = deltaClass(change.before, change.after);
+                return `<div class="change ${tone}" data-cart-code="${change.code}">
+            <div>
+              <div class="change-title">${escapeHtml(change.title)}</div>
+              <div class="change-meta">${countLabel(change.before)} → ${countLabel(change.after)}</div>
+            </div>
+            <div class="change-value ${tone}">${signedNumber(change.after - change.before)}</div>
+            <button
+              type="button"
+              class="change-remove remove-action"
+              data-cart-remove="${change.code}"
+              aria-label="Remove ${escapeHtml(change.title)} from cart"
+            >Remove</button>
+          </div>`;
+              })
+              .join("")
+          : '<div class="empty"><b>Cart is empty</b>Changes appear here before they are committed.</div>';
+      }
+
+      function removeCartItem(stickerCode) {
+        const normalizedCode = String(stickerCode || "").toUpperCase();
+        if (!Object.prototype.hasOwnProperty.call(app.draft, normalizedCode)) {
+          return;
+        }
+
+        delete app.draft[normalizedCode];
+        markMutation();
+        scheduleStateSave();
+        refreshAfterDraftMutation([normalizedCode], true);
+      }
+
+      function clearCart() {
+        const stickerCodes = Object.keys(app.draft);
+        if (!stickerCodes.length) {
+          return;
+        }
+
+        app.draft = {};
+        markMutation();
+        scheduleStateSave();
+        refreshAfterDraftMutation(stickerCodes, true);
+        showToast("Cart cleared.");
+      }
+
+      async function commitChanges() {
+        const changes = getChanges();
+        if (!changes.length) {
+          return;
+        }
+
+        const previousState = cloneState(app);
+        elements.commit.disabled = true;
+        elements.clearCart.disabled = true;
+
+        for (const change of changes) {
+          if (change.after > 0) {
+            app.copies[change.code] = change.after;
+          } else {
+            delete app.copies[change.code];
+          }
+        }
+
+        app.draft = {};
+        app.history = [
+          {
+            id: createUniqueId("commit"),
+            at: new Date().toISOString(),
+            title: `${changes.length} sticker change${changes.length === 1 ? "" : "s"}`,
+            changes,
+          },
+          ...app.history,
+        ].slice(0, MAX_HISTORY);
+        markMutation();
+
+        const saved = await saveStateImmediately();
+        if (!saved) {
+          app = previousState;
+          render();
+          renderCart();
+          showToast(
+            "Commit could not be saved. Pending changes were restored.",
+          );
+          return;
+        }
+
+        closeModal(elements.cartModal);
+        render();
+        showToast("Changes committed.");
+      }
+
+      function renderHistory() {
+        elements.historyList.innerHTML = app.history.length
+          ? app.history
+              .map((entry) => {
+                const date = new Date(entry.at);
+                const changeMarkup = entry.changes
+                  .map((change) => {
+                    const tone = deltaClass(change.before, change.after);
+                    return `<div class="change ${tone}">
+                <div>
+                  <div class="change-title">${escapeHtml(change.title)}</div>
+                  <div class="change-meta">${countLabel(change.before)} → ${countLabel(change.after)}</div>
+                </div>
+                <div class="change-value ${tone}">${signedNumber(change.after - change.before)}</div>
+              </div>`;
+                  })
+                  .join("");
+                const revertDeltas = entry.changes.map(
+                  (change) => change.before - change.after,
+                );
+                const revertAdds = revertDeltas.some((delta) => delta > 0);
+                const revertRemoves = revertDeltas.some((delta) => delta < 0);
+                const revertTone =
+                  revertAdds && !revertRemoves
+                    ? "add-action"
+                    : revertRemoves && !revertAdds
+                      ? "remove-action"
+                      : "";
+
+                return `<details class="history-card">
+            <summary>${escapeHtml(entry.title)}</summary>
+            <div class="history-meta">${Number.isNaN(date.getTime()) ? "" : date.toLocaleString()}</div>
+            <div class="history-details">${changeMarkup}</div>
+            <div class="history-actions"><button class="${revertTone}" data-revert="${escapeHtml(entry.id)}">Stage revert</button></div>
+          </details>`;
+              })
+              .join("")
+          : '<div class="empty"><b>No commits yet</b>Your committed changes will appear here.</div>';
+      }
+
+      function stageHistoryRevert(historyId) {
+        const entry = app.history.find(
+          (historyEntry) => historyEntry.id === historyId,
+        );
+        if (!entry) {
+          return;
+        }
+
+        let stagedCount = 0;
+        let limitedCount = 0;
+
+        for (const change of entry.changes) {
+          const inverseDelta = change.before - change.after;
+          if (!inverseDelta) {
+            continue;
+          }
+
+          const currentCount = getCount(change.code);
+          const rawTarget = currentCount + inverseDelta;
+          const targetCount = clampCopies(rawTarget);
+          if (targetCount !== rawTarget) {
+            limitedCount += 1;
+          }
+
+          if (setDraftCount(change.code, targetCount)) {
+            stagedCount += 1;
+          }
+        }
+
+        if (!stagedCount) {
+          showToast("That commit is already reversed in the current counts.");
+          return;
+        }
+
+        markMutation();
+        scheduleStateSave();
+        closeModal(elements.historyModal);
+        render();
+        openCart();
+        showToast(
+          limitedCount
+            ? `Revert staged · ${limitedCount} count${limitedCount === 1 ? "" : "s"} limited to 0–99.`
+            : "Revert staged.",
+        );
+      }
+
+      function createBackupPayload() {
+        return app.items.map((item) => ({
+          title: item.title,
+          count: clampCopies(app.copies[item.code]),
+        }));
+      }
+
+      function downloadFile(filename, content, type = "text/plain") {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 500);
+      }
+
+      function saveBackup() {
+        downloadFile(
+          `kias-kollekt-backup-${new Date().toISOString().slice(0, 10)}.json`,
+          JSON.stringify(createBackupPayload(), null, 2),
+          "application/json",
+        );
+        closePopovers();
+        showToast("Backup saved.");
+      }
+
+      async function restoreBackup(rawBackup) {
+        const collection = decodeBackup(rawBackup);
+        const previousState = cloneState(app);
+        const currentRevision = Math.max(0, Number(app.rev) || 0);
+
+        app = normalizeState({
+          items: collection.items,
+          copies: collection.copies,
+          draft: {},
+          filters: app.filters,
+          sort: app.sort,
+          view: app.view,
+          history: [],
+          rev: currentRevision,
+        });
+        markMutation();
+        render(true);
+
+        const saved = await saveStateImmediately();
+        if (!saved) {
+          app = previousState;
+          render(true);
+          throw new Error(
+            "Backup was read but could not be saved in browser storage.",
+          );
+        }
+
+        closePopovers();
+        const owned = Object.keys(app.copies).length;
+        showToast(
+          `Backup restored · ${owned} owned · ${getTotalDupeCopies()} dupe copies.`,
+        );
+      }
+
+      function exportVisibleText() {
+        const lines = getFilteredItems().map((item) => {
+          const copyCount = getCount(item.code);
+          return copyCount === 0
+            ? `${item.title} NEED`
+            : `${item.title} ×${copyCount}`;
+        });
+
+        if (!lines.length) {
+          showToast("No visible stickers to download.");
+          return;
+        }
+
+        downloadFile("kias-kollekt-visible.txt", lines.join("\n"));
+        showToast(`${lines.length} lines exported.`);
+      }
+
+      // Kia's Kollekt K4 codec: checklist fingerprint + base-3 state packing.
+      // K4 codes use an internal magic header and checksum so copied text can be
+      // recovered safely even when a browser adds whitespace or invisible marks.
+      const COMPACT_TRADE_PREFIX = "K4";
+      const COMPACT_TRADE_MAGIC = [0x4b, 0x4b, 0x04];
+
+      function encodeBase64UrlBytes(bytes) {
+        let binary = "";
+        for (const byte of bytes) {
+          binary += String.fromCharCode(byte);
+        }
+
+        return btoa(binary)
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_")
+          .replace(/=+$/g, "");
+      }
+
+      function cleanBase64UrlValue(value) {
+        return String(value || "")
+          .normalize("NFKC")
+          .replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "")
+          .replace(/[‐‑‒–—−]/g, "-")
+          .replace(/\s+/g, "");
+      }
+
+      function decodeBase64UrlBytes(value) {
+        const compactValue = cleanBase64UrlValue(value);
+        if (!compactValue || !/^[A-Za-z0-9_-]+$/.test(compactValue)) {
+          throw new Error(
+            "The share code contains unsupported characters.",
+          );
+        }
+
+        const normalized = compactValue.replace(/-/g, "+").replace(/_/g, "/");
+        if (normalized.length % 4 === 1) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        const padded =
+          normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+
+        try {
+          const binary = atob(padded);
+          return Uint8Array.from(binary, (character) =>
+            character.charCodeAt(0),
+          );
+        } catch {
+          throw new Error("The share code could not be decoded.");
+        }
+      }
+
+      function getCommittedCount(stickerCode) {
+        return clampCopies(app.copies[String(stickerCode || "").toUpperCase()]);
+      }
+
+      function getCanonicalTradeItems() {
+        return [...app.items].sort((first, second) => {
+          if (first.code < second.code) {
+            return -1;
+          }
+          if (first.code > second.code) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      function hashFNV1a32(value) {
+        let hash = 2166136261;
+        for (let index = 0; index < value.length; index += 1) {
+          hash ^= value.charCodeAt(index);
+          hash = Math.imul(hash, 16777619);
+        }
+        return hash >>> 0;
+      }
+
+      function crc16(bytes) {
+        let crc = 0xffff;
+
+        for (const byte of bytes) {
+          crc ^= byte << 8;
+          for (let bit = 0; bit < 8; bit += 1) {
+            crc =
+              crc & 0x8000
+                ? ((crc << 1) ^ 0x1021) & 0xffff
+                : (crc << 1) & 0xffff;
+          }
+        }
+
+        return crc;
+      }
+
+      function createTradeAlbumSignature() {
+        const albumCodes = getCanonicalTradeItems()
+          .map((item) => item.code)
+          .join("|");
+        const albumBytes = new TextEncoder().encode(albumCodes);
+
+        return {
+          hash: hashFNV1a32(albumCodes),
+          checksum: crc16(albumBytes),
+          total: app.items.length,
+        };
+      }
+
+      function appendUint16LittleEndian(target, value) {
+        target.push(value & 0xff, (value >>> 8) & 0xff);
+      }
+
+      function appendUint32LittleEndian(target, value) {
+        target.push(
+          value & 0xff,
+          (value >>> 8) & 0xff,
+          (value >>> 16) & 0xff,
+          (value >>> 24) & 0xff,
+        );
+      }
+
+      function appendVariableUnsignedInteger(target, rawValue) {
+        let value = Math.max(0, Number.parseInt(rawValue, 10) || 0);
+
+        do {
+          let byte = value % 128;
+          value = Math.floor(value / 128);
+          if (value > 0) {
+            byte |= 0x80;
+          }
+          target.push(byte);
+        } while (value > 0);
+      }
+
+      function readUint16LittleEndian(bytes, cursor, end) {
+        if (cursor.index + 2 > end) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        const value = bytes[cursor.index] | (bytes[cursor.index + 1] << 8);
+        cursor.index += 2;
+        return value;
+      }
+
+      function readUint32LittleEndian(bytes, cursor, end) {
+        if (cursor.index + 4 > end) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        const value =
+          (bytes[cursor.index] |
+            (bytes[cursor.index + 1] << 8) |
+            (bytes[cursor.index + 2] << 16) |
+            (bytes[cursor.index + 3] << 24)) >>>
+          0;
+        cursor.index += 4;
+        return value;
+      }
+
+      function readVariableUnsignedInteger(bytes, cursor, end) {
+        let value = 0;
+        let multiplier = 1;
+
+        for (let index = 0; index < 5; index += 1) {
+          if (cursor.index >= end) {
+            throw new Error("The share code is incomplete.");
+          }
+
+          const byte = bytes[cursor.index];
+          cursor.index += 1;
+          value += (byte & 0x7f) * multiplier;
+
+          if ((byte & 0x80) === 0) {
+            return value;
+          }
+
+          multiplier *= 128;
+        }
+
+        throw new Error("The share code contains an invalid number.");
+      }
+
+      function createPackedTradePayload() {
+        const items = getCanonicalTradeItems();
+        const signature = createTradeAlbumSignature();
+        const states = [];
+        const duplicateTotals = [];
+
+        for (const item of items) {
+          const copyCount = getCommittedCount(item.code);
+
+          if (copyCount === 0) {
+            states.push(1);
+          } else if (copyCount === 1) {
+            states.push(0);
+          } else {
+            states.push(2);
+            duplicateTotals.push(copyCount);
+          }
+        }
+
+        const packedStates = [];
+        for (let index = 0; index < states.length; index += 5) {
+          let packedValue = 0;
+          let placeValue = 1;
+
+          for (let offset = 0; offset < 5; offset += 1) {
+            packedValue += (states[index + offset] || 0) * placeValue;
+            placeValue *= 3;
+          }
+
+          packedStates.push(packedValue);
+        }
+
+        const overflowFlags = new Uint8Array(
+          Math.ceil(duplicateTotals.length / 8),
+        );
+        const overflowValues = [];
+
+        duplicateTotals.forEach((copyCount, index) => {
+          if (copyCount <= 2) {
+            return;
+          }
+
+          overflowFlags[Math.floor(index / 8)] |= 1 << (index % 8);
+          appendVariableUnsignedInteger(overflowValues, copyCount - 3);
+        });
+
+        const payload = [];
+        payload.push(...COMPACT_TRADE_MAGIC);
+        appendUint32LittleEndian(payload, signature.hash);
+        appendUint16LittleEndian(payload, signature.checksum);
+        appendVariableUnsignedInteger(payload, items.length);
+        payload.push(...packedStates);
+        payload.push(...overflowFlags);
+        payload.push(...overflowValues);
+
+        const checksum = crc16(Uint8Array.from(payload));
+        appendUint16LittleEndian(payload, checksum);
+        return Uint8Array.from(payload);
+      }
+
+      function createCompactTradeCode() {
+        return `${COMPACT_TRADE_PREFIX}${encodeBase64UrlBytes(
+          createPackedTradePayload(),
+        )}`;
+      }
+
+      function hasValidCompactChecksum(bytes) {
+        if (bytes.length < 4) {
+          return false;
+        }
+
+        const payloadEnd = bytes.length - 2;
+        const expectedChecksum =
+          bytes[payloadEnd] | (bytes[payloadEnd + 1] << 8);
+        return crc16(bytes.subarray(0, payloadEnd)) === expectedChecksum;
+      }
+
+      function parseCompactTradeBytes(bytes) {
+        if (bytes.length < 13) {
+          throw new Error("The share code is incomplete.");
+        }
+        if (!hasValidCompactChecksum(bytes)) {
+          throw new Error("The share code is damaged or incomplete.");
+        }
+
+        const payloadEnd = bytes.length - 2;
+        const cursor = { index: 0 };
+
+        for (const expectedByte of COMPACT_TRADE_MAGIC) {
+          if (bytes[cursor.index] !== expectedByte) {
+            throw new Error("The share code has an invalid header.");
+          }
+          cursor.index += 1;
+        }
+
+        const remoteHash = readUint32LittleEndian(bytes, cursor, payloadEnd);
+        const remoteAlbumChecksum = readUint16LittleEndian(
+          bytes,
+          cursor,
+          payloadEnd,
+        );
+        const itemCount = readVariableUnsignedInteger(
+          bytes,
+          cursor,
+          payloadEnd,
+        );
+        const localSignature = createTradeAlbumSignature();
+
+        if (
+          itemCount !== localSignature.total ||
+          remoteHash !== localSignature.hash ||
+          remoteAlbumChecksum !== localSignature.checksum
+        ) {
+          throw new Error(
+            "This share code was created for a different checklist.",
+          );
+        }
+
+        const stateByteCount = Math.ceil(itemCount / 5);
+        if (cursor.index + stateByteCount > payloadEnd) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        const states = [];
+        let duplicateCount = 0;
+
+        for (let byteIndex = 0; byteIndex < stateByteCount; byteIndex += 1) {
+          let packedValue = bytes[cursor.index];
+          cursor.index += 1;
+
+          if (packedValue > 242) {
+            throw new Error("The share code contains invalid data.");
+          }
+
+          for (
+            let offset = 0;
+            offset < 5 && states.length < itemCount;
+            offset += 1
+          ) {
+            const state = packedValue % 3;
+            packedValue = Math.floor(packedValue / 3);
+            states.push(state);
+            if (state === 2) {
+              duplicateCount += 1;
+            }
+          }
+        }
+
+        const overflowByteCount = Math.ceil(duplicateCount / 8);
+        if (cursor.index + overflowByteCount > payloadEnd) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        const overflowFlags = bytes.subarray(
+          cursor.index,
+          cursor.index + overflowByteCount,
+        );
+        cursor.index += overflowByteCount;
+
+        const duplicates = new Map();
+        const needs = new Set();
+        const items = getCanonicalTradeItems();
+        let duplicateIndex = 0;
+
+        states.forEach((state, index) => {
+          const stickerCode = items[index].code;
+
+          if (state === 1) {
+            needs.add(stickerCode);
+            return;
+          }
+          if (state !== 2) {
+            return;
+          }
+
+          const hasOverflow =
+            overflowFlags[Math.floor(duplicateIndex / 8)] &
+            (1 << (duplicateIndex % 8));
+          let copyCount = 2;
+
+          if (hasOverflow) {
+            copyCount =
+              3 + readVariableUnsignedInteger(bytes, cursor, payloadEnd);
+            if (copyCount > 99) {
+              throw new Error("The share code has an invalid copy count.");
+            }
+          }
+
+          duplicates.set(stickerCode, copyCount - 1);
+          duplicateIndex += 1;
+        });
+
+        if (cursor.index !== payloadEnd) {
+          throw new Error("The share code contains extra data.");
+        }
+
+        return { duplicates, needs };
+      }
+
+      function parseCompactCandidate(encodedValue) {
+        const candidate = cleanBase64UrlValue(encodedValue).match(
+          /^[A-Za-z0-9_-]+/,
+        )?.[0];
+
+        if (!candidate) {
+          throw new Error("The share code is incomplete.");
+        }
+
+        let payloadError = null;
+        for (let end = candidate.length; end >= 16; end -= 1) {
+          if (end % 4 === 1) {
+            continue;
+          }
+
+          try {
+            const bytes = decodeBase64UrlBytes(candidate.slice(0, end));
+            if (!hasValidCompactChecksum(bytes)) {
+              continue;
+            }
+            try {
+              return parseCompactTradeBytes(bytes);
+            } catch (error) {
+              payloadError = error;
+              break;
+            }
+          } catch {
+            // Continue trimming text appended by a messaging app.
+          }
+        }
+
+        if (payloadError) {
+          throw payloadError;
+        }
+        throw new Error("The share code is damaged or incomplete.");
+      }
+
+      function parseTradePayload(rawCode) {
+        const source = String(rawCode || "")
+          .normalize("NFKC")
+          .replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "")
+          .replace(/[‐‑‒–—−]/g, "-")
+          .trim();
+
+        if (!source) {
+          throw new Error("Paste a share code first.");
+        }
+
+        const prefixed = source.match(/(^|[^A-Za-z0-9_-])K4[.:：]?/i);
+        if (prefixed) {
+          const start = (prefixed.index || 0) + prefixed[0].length;
+          return parseCompactCandidate(source.slice(start));
+        }
+
+        const bareCandidate = cleanBase64UrlValue(source).match(
+          /^[A-Za-z0-9_-]+/,
+        )?.[0];
+        if (!bareCandidate) {
+          throw new Error("The share code could not be read.");
+        }
+
+        return parseCompactCandidate(bareCandidate);
+      }
+
+      function resetTradeComparison() {
+        tradeComparison = null;
+        tradeSelection = {
+          receive: new Set(),
+          give: new Set(),
+        };
+        elements.tradeResults.innerHTML = "";
+        elements.clearTradeSelection.disabled = true;
+        elements.stageTrade.disabled = true;
+      }
+
+      function openTrade() {
+        resetTradeComparison();
+        elements.theirTrade.value = "";
+
+        if (!app.items.length) {
+          elements.myTrade.value = "";
+          elements.copyTrade.disabled = true;
+          elements.compareTrade.disabled = true;
+          elements.tradeStatus.textContent =
+            "Load a checklist before creating or comparing a trade code.";
+        } else {
+          elements.myTrade.value = createCompactTradeCode();
+          elements.copyTrade.disabled = false;
+          elements.compareTrade.disabled = false;
+          const pendingCount = Object.keys(app.draft).length;
+          elements.tradeStatus.textContent = pendingCount
+            ? `${pendingCount} pending change${pendingCount === 1 ? " is" : "s are"} not included. Commit them before sharing an updated code.`
+            : "Compact share codes use committed copy counts.";
+        }
+
+        closePopovers();
+        openModal(elements.tradeModal);
+      }
+
+      function tradeMatchesFor(side) {
+        return side === "receive"
+          ? tradeComparison?.receive || []
+          : tradeComparison?.give || [];
+      }
+
+      function updateTradeButtons() {
+        const selectedCount =
+          tradeSelection.receive.size + tradeSelection.give.size;
+        elements.clearTradeSelection.disabled = selectedCount === 0;
+        elements.stageTrade.disabled = selectedCount === 0;
+      }
+
+      function renderTradeSection(side, heading, matches) {
+        const selectedCodes = tradeSelection[side];
+        const allSelected =
+          matches.length > 0 &&
+          matches.every((match) => selectedCodes.has(match.item.code));
+
+        const rows = matches.length
+          ? matches
+              .map((match) => {
+                const selected = selectedCodes.has(match.item.code);
+                const availability =
+                  side === "receive"
+                    ? `They have ${match.available} extra`
+                    : `You have ${match.available} extra`;
+
+                return `<button
+                  type="button"
+                  class="trade-row trade-${side}${selected ? " selected" : ""}"
+                  data-trade-toggle="${side}"
+                  data-code="${escapeHtml(match.item.code)}"
+                  aria-pressed="${selected}"
+                >
+                  <span>
+                    <b>${escapeHtml(match.item.title)}</b>
+                    <span>${availability}</span>
+                  </span>
+                  <span class="trade-choice">${selected ? "Included" : "Skipped"}</span>
+                </button>`;
+              })
+              .join("")
+          : '<div class="empty">No matches.</div>';
+
+        return `<section class="trade-section trade-${side}">
+          <div class="trade-section-head">
+            <span class="trade-label">${heading} · ${matches.length}</span>
+            ${
+              matches.length
+                ? `<button
+                    type="button"
+                    class="trade-small-button ${side === "receive" ? "add-action" : "remove-action"}"
+                    data-trade-all="${side}"
+                  >${allSelected ? "Clear all" : "Select all"}</button>`
+                : ""
+            }
+          </div>
+          ${rows}
+        </section>`;
+      }
+
+      function renderTradeResults() {
+        if (!tradeComparison) {
+          resetTradeComparison();
+          return;
+        }
+
+        const receiveSelected = tradeSelection.receive.size;
+        const giveSelected = tradeSelection.give.size;
+        elements.tradeResults.innerHTML = `
+          <div class="trade-summary">
+            <div class="trade-stat trade-receive">
+              <b>${receiveSelected}</b>
+              <span>sticker${receiveSelected === 1 ? "" : "s"} to receive</span>
+            </div>
+            <div class="trade-stat trade-give">
+              <b>${giveSelected}</b>
+              <span>sticker${giveSelected === 1 ? "" : "s"} to give</span>
+            </div>
+          </div>
+          <p class="trade-note">
+            Tap a sticker to include or skip it. Each selected sticker changes your count by one when added to the cart.
+          </p>
+          ${renderTradeSection(
+            "receive",
+            "They can give you",
+            tradeComparison.receive,
+          )}
+          ${renderTradeSection(
+            "give",
+            "You can give them",
+            tradeComparison.give,
+          )}`;
+        updateTradeButtons();
+      }
+
+      function compareTrade() {
+        try {
+          const theirData = parseTradePayload(elements.theirTrade.value);
+          const receive = [];
+          const give = [];
+
+          for (const item of app.items) {
+            const yourCount = getCount(item.code);
+            const theirExtraCount = theirData.duplicates.get(item.code) || 0;
+
+            if (yourCount === 0 && theirExtraCount > 0) {
+              receive.push({ item, available: theirExtraCount });
+            }
+            if (yourCount > 1 && theirData.needs.has(item.code)) {
+              give.push({ item, available: yourCount - 1 });
+            }
+          }
+
+          tradeComparison = { receive, give };
+          tradeSelection = {
+            receive: new Set(receive.map((match) => match.item.code)),
+            give: new Set(give.map((match) => match.item.code)),
+          };
+          elements.tradeStatus.textContent = `${app.items.length} stickers compared.`;
+          renderTradeResults();
+        } catch (error) {
+          resetTradeComparison();
+          const message =
+            cleanText(error?.message) || "The share code could not be read.";
+          elements.tradeStatus.textContent = message;
+          elements.tradeResults.innerHTML = `<div class="empty">
+            <b>Code could not be read</b>
+            ${escapeHtml(message)}
+            <span>Copy the complete share code and try again.</span>
+          </div>`;
+        }
+      }
+
+      function toggleTradeSelection(side, stickerCode) {
+        if (!tradeComparison || !["receive", "give"].includes(side)) {
+          return;
+        }
+
+        const validMatch = tradeMatchesFor(side).some(
+          (match) => match.item.code === stickerCode,
+        );
+        if (!validMatch) {
+          return;
+        }
+
+        const selectedCodes = tradeSelection[side];
+        if (selectedCodes.has(stickerCode)) {
+          selectedCodes.delete(stickerCode);
+        } else {
+          selectedCodes.add(stickerCode);
+        }
+        renderTradeResults();
+      }
+
+      function toggleAllTradeMatches(side) {
+        const matches = tradeMatchesFor(side);
+        if (!matches.length) {
+          return;
+        }
+
+        const selectedCodes = tradeSelection[side];
+        const allSelected = matches.every((match) =>
+          selectedCodes.has(match.item.code),
+        );
+        tradeSelection[side] = allSelected
+          ? new Set()
+          : new Set(matches.map((match) => match.item.code));
+        renderTradeResults();
+      }
+
+      function clearTradeSelection() {
+        tradeSelection = {
+          receive: new Set(),
+          give: new Set(),
+        };
+        renderTradeResults();
+      }
+
+      function stageSelectedTrade() {
+        if (!tradeComparison) {
+          return;
+        }
+
+        let receiveCount = 0;
+        let giveCount = 0;
+        let skippedCount = 0;
+
+        for (const match of tradeComparison.receive) {
+          if (!tradeSelection.receive.has(match.item.code)) {
+            continue;
+          }
+
+          const currentCount = getCount(match.item.code);
+          if (currentCount !== 0) {
+            skippedCount += 1;
+            continue;
+          }
+          if (setDraftCount(match.item.code, 1)) {
+            receiveCount += 1;
+          }
+        }
+
+        for (const match of tradeComparison.give) {
+          if (!tradeSelection.give.has(match.item.code)) {
+            continue;
+          }
+
+          const currentCount = getCount(match.item.code);
+          if (currentCount <= 1) {
+            skippedCount += 1;
+            continue;
+          }
+          if (setDraftCount(match.item.code, currentCount - 1)) {
+            giveCount += 1;
+          }
+        }
+
+        if (!receiveCount && !giveCount) {
+          const message = skippedCount
+            ? "The selected trade no longer matches your current counts. Compare the code again."
+            : "Select at least one sticker to add to the cart.";
+          compareTrade();
+          showToast(message);
+          return;
+        }
+
+        markMutation();
+        scheduleStateSave();
+        closeModal(elements.tradeModal);
+        resetTradeComparison();
+        render();
+        openCart();
+
+        const summary = [
+          receiveCount ? `${receiveCount} receiving` : "",
+          giveCount ? `${giveCount} giving` : "",
+          skippedCount ? `${skippedCount} skipped` : "",
+        ].filter(Boolean);
+        showToast(`Trade added to cart · ${summary.join(" · ")}.`);
+      }
+
+      async function pasteTradeCode() {
+        try {
+          const clipboardText = await navigator.clipboard.readText();
+          if (!clipboardText.trim()) {
+            throw new Error("Clipboard is empty.");
+          }
+          elements.theirTrade.value = clipboardText.trim();
+          elements.tradeStatus.textContent = "Code pasted. Select Compare.";
+          elements.theirTrade.focus();
+        } catch (error) {
+          elements.theirTrade.focus();
+          showToast(error.message || "Paste the code into the field.");
+        }
+      }
+
+      function copyTextWithSelectionFallback(text) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.left = "-9999px";
+        helper.style.top = "0";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.focus();
+        helper.select();
+        helper.setSelectionRange(0, helper.value.length);
+
+        let copied = false;
+        try {
+          copied = document.execCommand("copy");
+        } catch {
+          copied = false;
+        }
+        helper.remove();
+        return copied;
+      }
+
+      async function copyTradeCode() {
+        const tradeCode = elements.myTrade.value.trim();
+        if (!tradeCode) {
+          showToast("Load a checklist before creating a trade code.");
+          return;
+        }
+
+        try {
+          if (!navigator.clipboard?.writeText) {
+            throw new Error("Clipboard API unavailable.");
+          }
+          await navigator.clipboard.writeText(tradeCode);
+          showToast("Trade code copied.");
+          return;
+        } catch {
+          if (copyTextWithSelectionFallback(tradeCode)) {
+            showToast("Trade code copied.");
+            return;
+          }
+        }
+
+        elements.myTrade.focus();
+        elements.myTrade.select();
+        elements.myTrade.setSelectionRange(0, tradeCode.length);
+        showToast("Code selected. Copy it from the field.");
+      }
+
+      function imageCodeFromFilename(filename) {
+        const match = String(filename || "")
+          .replace(/\.[^.]+$/, "")
+          .toUpperCase()
+          .match(
+            /(?:^|[^A-Z0-9])(00|FWC\d{1,3}|CC\d{1,3}|[A-Z]{2,5}\d{1,3})(?=$|[^A-Z0-9])/,
+          );
+        return match ? match[1] : "";
+      }
+
+      async function saveImageFiles(files) {
+        const imageRecords = [];
+        const seenCodes = new Set();
+
+        for (const file of files || []) {
+          const stickerCode = imageCodeFromFilename(file.name);
+          if (!stickerCode || seenCodes.has(stickerCode)) {
+            continue;
+          }
+
+          seenCodes.add(stickerCode);
+          imageRecords.push({
+            id: stickerCode,
+            name: file.name,
+            path: file.webkitRelativePath || file.name,
+            blob: file.slice(0, file.size, file.type || "image/jpeg"),
+            updatedAt: new Date().toISOString(),
+          });
+        }
+
+        if (!imageRecords.length) {
+          throw new Error(
+            "Image filenames must begin with a sticker code, such as ALG1.jpg.",
+          );
+        }
+
+        const database = await openDatabase();
+        try {
+          const transaction = database.transaction(IMAGE_STORE, "readwrite");
+          const store = transaction.objectStore(IMAGE_STORE);
+          for (const record of imageRecords) {
+            store.put(record);
+          }
+          await transactionDone(transaction);
+        } finally {
+          database.close();
+        }
+
+        imageMutationSerial += 1;
+        return imageRecords.map((record) => record.id);
+      }
+
+      async function readImageKeys() {
+        const database = await openDatabase();
+        try {
+          const transaction = database.transaction(IMAGE_STORE, "readonly");
+          const done = transactionDone(transaction);
+          const keys = await requestResult(
+            transaction.objectStore(IMAGE_STORE).getAllKeys(),
+          );
+          await done;
+          return new Set(keys.map((key) => String(key).toUpperCase()));
+        } finally {
+          database.close();
+        }
+      }
+
+      async function readImageRecord(stickerCode) {
+        const database = await openDatabase();
+        try {
+          const transaction = database.transaction(IMAGE_STORE, "readonly");
+          const done = transactionDone(transaction);
+          const record = await requestResult(
+            transaction.objectStore(IMAGE_STORE).get(stickerCode),
+          );
+          await done;
+          return record || null;
+        } finally {
+          database.close();
+        }
+      }
+
+      function releaseCachedImage(stickerCode, restoreThumbnail = true) {
+        const cached = imageCache.get(stickerCode);
+        if (!cached) {
+          return;
+        }
+
+        URL.revokeObjectURL(cached.url);
+        imageCache.delete(stickerCode);
+
+        if (!restoreThumbnail) {
+          return;
+        }
+
+        const thumb = elements.list.querySelector(
+          `.row[data-code="${stickerCode}"] .thumb`,
+        );
+        if (thumb) {
+          thumb.textContent = stickerCode;
+          thumb.dataset.imageCode = stickerCode;
+          if (thumbnailObserver) {
+            thumbnailObserver.observe(thumb);
+          }
+        }
+      }
+
+      function nearbyImageCodes() {
+        const protectedCodes = new Set();
+        const margin = 260;
+
+        for (const row of elements.list.querySelectorAll(".row[data-code]")) {
+          const rect = row.getBoundingClientRect();
+          if (rect.bottom >= -margin && rect.top <= innerHeight + margin) {
+            protectedCodes.add(row.dataset.code);
+          }
+        }
+
+        return protectedCodes;
+      }
+
+      function trimImageCache() {
+        if (imageCache.size <= IMAGE_CACHE_LIMIT) {
+          return;
+        }
+
+        const protectedCodes = nearbyImageCodes();
+        if (currentImageCode) {
+          protectedCodes.add(currentImageCode);
+        }
+
+        const candidates = [...imageCache.entries()]
+          .filter(([stickerCode]) => !protectedCodes.has(stickerCode))
+          .sort((first, second) => first[1].lastUsed - second[1].lastUsed);
+
+        while (imageCache.size > IMAGE_CACHE_LIMIT && candidates.length) {
+          const [stickerCode] = candidates.shift();
+          releaseCachedImage(stickerCode);
+        }
+      }
+
+      async function ensureImageCached(stickerCode) {
+        const normalizedCode = String(stickerCode || "").toUpperCase();
+        if (!imageKeys.has(normalizedCode)) {
+          return null;
+        }
+
+        const existing = imageCache.get(normalizedCode);
+        if (existing) {
+          existing.lastUsed = Date.now();
+          return existing;
+        }
+
+        if (imageLoads.has(normalizedCode)) {
+          return imageLoads.get(normalizedCode);
+        }
+
+        const loadPromise = (async () => {
+          try {
+            const record = await readImageRecord(normalizedCode);
+            if (!record?.blob || !record.blob.size) {
+              imageKeys.delete(normalizedCode);
+              return null;
+            }
+
+            const cached = {
+              url: URL.createObjectURL(record.blob),
+              lastUsed: Date.now(),
+            };
+            imageCache.set(normalizedCode, cached);
+            trimImageCache();
+            return cached;
+          } catch {
+            return null;
+          } finally {
+            imageLoads.delete(normalizedCode);
+          }
+        })();
+
+        imageLoads.set(normalizedCode, loadPromise);
+        return loadPromise;
+      }
+
+      async function loadImageFolder(fileList) {
+        const files = Array.from(fileList || []).filter(
+          (file) =>
+            file &&
+            (String(file.type || "").startsWith("image/") ||
+              /\.(jpe?g|png|webp|avif)$/i.test(file.name || "")),
+        );
+
+        if (!files.length) {
+          showToast("No supported images found.");
+          return;
+        }
+
+        try {
+          const savedCodes = await saveImageFiles(files);
+          for (const stickerCode of savedCodes) {
+            imageKeys.add(stickerCode);
+            releaseCachedImage(stickerCode, false);
+          }
+          closePopovers();
+          renderList();
+          const skipped = files.length - savedCodes.length;
+          showToast(
+            `${imageKeys.size} sticker images saved${skipped ? ` · ${skipped} skipped` : ""}.`,
+          );
+        } catch (error) {
+          showToast(error.message || "Images could not be saved.");
+        }
+      }
+
+      function getImageSourceItems() {
+        return visibleItems.length ? visibleItems : app.items;
+      }
+
+      async function displayViewerItem(item) {
+        const token = ++imageRenderToken;
+        currentImageCode = item.code;
+        elements.imageTitle.textContent = item.title;
+        elements.imageCode.textContent = item.code;
+        elements.imageView.hidden = true;
+        elements.imageView.removeAttribute("src");
+        elements.imageFallback.hidden = false;
+        elements.imageFallback.textContent = imageKeys.has(item.code)
+          ? "Loading image…"
+          : "No saved image for this sticker.";
+
+        const cached = await ensureImageCached(item.code);
+        if (token !== imageRenderToken || currentImageCode !== item.code) {
+          return;
+        }
+
+        if (cached) {
+          elements.imageView.src = cached.url;
+          elements.imageView.alt = item.title;
+          elements.imageView.hidden = false;
+          elements.imageFallback.hidden = true;
+        } else {
+          elements.imageFallback.textContent = imageKeys.has(item.code)
+            ? "The saved image could not be loaded. Try reopening the viewer."
+            : "No saved image for this sticker.";
+        }
+      }
+
+      function openImage(stickerCode) {
+        const source = getImageSourceItems();
+        imagePosition = source.findIndex((item) => item.code === stickerCode);
+        if (imagePosition < 0) {
+          return;
+        }
+        resetSwipe();
+        openModal(elements.imageModal);
+        displayViewerItem(source[imagePosition]);
+      }
+
+      function moveImage(direction) {
+        const source = getImageSourceItems();
+        if (!source.length) {
+          return;
+        }
+        imagePosition =
+          (imagePosition + direction + source.length) % source.length;
+        displayViewerItem(source[imagePosition]);
+      }
+
+      function stopImageMotion() {
+        imageAnimationToken += 1;
+        elements.imageSlide.style.transition = "none";
+        elements.imageSlide.style.transform = "translateX(0)";
+        elements.imageSlide.style.opacity = "1";
+      }
+
+      function resetSwipe() {
+        swipePointerId = null;
+        swipeDistanceX = 0;
+        swipeDragging = false;
+        elements.imageStage.classList.remove("dragging");
+        stopImageMotion();
+      }
+
+      function snapImageBack() {
+        const token = ++imageAnimationToken;
+        elements.imageSlide.style.transition =
+          "transform 110ms ease-out, opacity 110ms ease-out";
+        elements.imageSlide.style.transform = "translateX(0)";
+        elements.imageSlide.style.opacity = "1";
+        window.setTimeout(() => {
+          if (token === imageAnimationToken) {
+            elements.imageSlide.style.transition = "none";
+          }
+        }, 120);
+      }
+
+      function animateImageChange(direction) {
+        if (getImageSourceItems().length < 2) {
+          snapImageBack();
+          return;
+        }
+
+        const token = ++imageAnimationToken;
+        moveImage(direction);
+        elements.imageSlide.style.transition = "none";
+        elements.imageSlide.style.transform = `translateX(${direction > 0 ? "28%" : "-28%"})`;
+        elements.imageSlide.style.opacity = ".58";
+
+        requestAnimationFrame(() => {
+          if (token !== imageAnimationToken) {
+            return;
+          }
+          elements.imageSlide.style.transition =
+            "transform 150ms cubic-bezier(.2,.8,.2,1), opacity 120ms ease-out";
+          elements.imageSlide.style.transform = "translateX(0)";
+          elements.imageSlide.style.opacity = "1";
+        });
+      }
+
+      function startSwipe(event) {
+        if (getImageSourceItems().length < 2) {
+          return;
+        }
+
+        stopImageMotion();
+        swipePointerId = event.pointerId;
+        swipeStartX = event.clientX;
+        swipeStartY = event.clientY;
+        swipeDistanceX = 0;
+        swipeStartedAt = performance.now();
+        swipeDragging = false;
+        elements.imageStage.setPointerCapture?.(event.pointerId);
+      }
+
+      function moveSwipe(event) {
+        if (event.pointerId !== swipePointerId) {
+          return;
+        }
+
+        const deltaX = event.clientX - swipeStartX;
+        const deltaY = event.clientY - swipeStartY;
+
+        if (!swipeDragging) {
+          if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 8) {
+            return;
+          }
+          if (Math.abs(deltaX) < 5) {
+            return;
+          }
+          swipeDragging = true;
+          elements.imageStage.classList.add("dragging");
+        }
+
+        swipeDistanceX = deltaX;
+        elements.imageSlide.style.transition = "none";
+        elements.imageSlide.style.transform = `translateX(${deltaX}px)`;
+        elements.imageSlide.style.opacity = String(
+          Math.max(
+            0.58,
+            1 - Math.abs(deltaX) / (1.5 * elements.imageStage.clientWidth),
+          ),
+        );
+      }
+
+      function endSwipe(event) {
+        if (event.pointerId !== swipePointerId) {
+          return;
+        }
+
+        try {
+          elements.imageStage.releasePointerCapture?.(event.pointerId);
+        } catch {
+          // Pointer capture may already be released.
+        }
+
+        const distance = swipeDistanceX;
+        const duration = Math.max(1, performance.now() - swipeStartedAt);
+        const velocity = Math.abs(distance) / duration;
+        const threshold = Math.min(
+          72,
+          Math.max(32, 0.11 * elements.imageStage.clientWidth),
+        );
+        const accepted =
+          swipeDragging && (Math.abs(distance) >= threshold || velocity > 0.42);
+
+        swipePointerId = null;
+        swipeDragging = false;
+        elements.imageStage.classList.remove("dragging");
+
+        if (accepted) {
+          animateImageChange(distance < 0 ? 1 : -1);
+        } else {
+          snapImageBack();
+        }
+      }
+
+      async function clearDatabaseStores() {
+        if (!("indexedDB" in window)) {
+          return;
+        }
+
+        const database = await openDatabase();
+        try {
+          const stores = [IMAGE_STORE, STATE_STORE].filter((storeName) =>
+            database.objectStoreNames.contains(storeName),
+          );
+          if (!stores.length) {
+            return;
+          }
+
+          const transaction = database.transaction(stores, "readwrite");
+          for (const storeName of stores) {
+            transaction.objectStore(storeName).clear();
+          }
+          await transactionDone(transaction);
+        } finally {
+          database.close();
+        }
+      }
+
+      function clearImageCache() {
+        if (thumbnailObserver) {
+          thumbnailObserver.disconnect();
+        }
+        for (const cached of imageCache.values()) {
+          URL.revokeObjectURL(cached.url);
+        }
+        imageCache.clear();
+        imageLoads.clear();
+        imageKeys.clear();
+        imageMutationSerial += 1;
+        currentImageCode = "";
+        imageRenderToken += 1;
+      }
+
+      async function resetApp() {
+        const confirmed = await requestConfirmation({
+          title: "Reset app",
+          message:
+            "Reset Kia's Kollekt? This clears the collection, pending changes, history, saved images, and cached app data on this device. This cannot be undone.",
+          acceptLabel: "Reset app",
+        });
+        if (!confirmed) {
+          return;
+        }
+
+        closePopovers();
+        storageEpoch += 1;
+        markMutation();
+        dirtyState = false;
+        window.clearTimeout(saveTimer);
+        saveTimer = 0;
+        await stateWriteQueue.catch(() => false);
+
+        clearImageCache();
+        try {
+          localStorage.removeItem(STATE_KEY);
+        } catch {
+          // Ignore unavailable local storage.
+        }
+
+        try {
+          await clearDatabaseStores();
+        } catch {
+          showToast(
+            "App data reset, but browser storage cleanup was incomplete.",
+          );
+        }
+
+        stateWriteQueue = Promise.resolve(true);
+        app = createBlankState();
+        itemIndex = new Map();
+        visibleItems = [];
+        pageSize = PAGE_SIZE;
+        elements.search.value = "";
+        elements.searchClear.hidden = true;
+        render(true);
+        showToast("App reset. All browser storage was cleared.");
+      }
+
+      function settleConfirmation(result) {
+        if (!confirmationResolver) {
+          return;
+        }
+
+        const resolve = confirmationResolver;
+        confirmationResolver = null;
+        closeModal(elements.confirmModal);
+        resolve(Boolean(result));
+      }
+
+      function requestConfirmation({
+        title = "Confirm",
+        message,
+        acceptLabel = "Confirm",
+      }) {
+        if (confirmationResolver) {
+          settleConfirmation(false);
+        }
+
+        elements.confirmTitle.textContent = title;
+        elements.confirmMessage.textContent = message;
+        elements.confirmAccept.textContent = acceptLabel;
+        openModal(elements.confirmModal);
+        elements.confirmAccept.focus();
+
+        return new Promise((resolve) => {
+          confirmationResolver = resolve;
+        });
+      }
+
+      function positionPopover(popover, anchor) {
+        const anchorRect = anchor.getBoundingClientRect();
+        popover.hidden = false;
+        const width = popover.offsetWidth;
+        popover.style.left = `${Math.min(
+          innerWidth - width - 12,
+          Math.max(12, anchorRect.right - width),
+        )}px`;
+        popover.style.top = `${Math.max(
+          12,
+          Math.min(
+            innerHeight - popover.offsetHeight - 12,
+            anchorRect.bottom + 7,
+          ),
+        )}px`;
+      }
+
+      function togglePopover(popover, anchor) {
+        const wasHidden = popover.hidden;
+        closePopovers();
+        if (wasHidden) {
+          positionPopover(popover, anchor);
+        }
+      }
+
+      function closePopovers() {
+        elements.menuPop.hidden = true;
+      }
+
+      function openModal(modal) {
+        closePopovers();
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(modal) {
+        if (!modal) {
+          return;
+        }
+
+        if (modal === elements.confirmModal && confirmationResolver) {
+          const resolve = confirmationResolver;
+          confirmationResolver = null;
+          resolve(false);
+        }
+
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        if (modal === elements.imageModal) {
+          resetSwipe();
+          currentImageCode = "";
+          imageRenderToken += 1;
+        }
+        if (!$$(".backdrop.open").length) {
+          document.body.style.overflow = "";
+        }
+      }
+
+      function openCart() {
+        renderCart();
+        openModal(elements.cartModal);
+      }
+
+      function openHistory() {
+        renderHistory();
+        openModal(elements.historyModal);
+      }
+
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        elements.toast.textContent = message;
+        elements.toast.classList.add("show");
+        toastTimer = window.setTimeout(
+          () => elements.toast.classList.remove("show"),
+          2600,
+        );
+      }
+
+      function updateSearch() {
+        elements.searchClear.hidden = !elements.search.value;
+        render(true);
+      }
+
+      async function initializeApp() {
+        const startupEpoch = storageEpoch;
+        const startupMutationSerial = mutationSerial;
+        const startupImageMutationSerial = imageMutationSerial;
+        const localState = readLocalCandidate();
+
+        app = localState || createBlankState();
+        rebuildIndex();
+        render(true);
+
+        try {
+          const databaseState = await readStateFromDatabase();
+          const startupEpochStillCurrent = startupEpoch === storageEpoch;
+          const startupStillCurrent =
+            startupEpochStillCurrent &&
+            startupMutationSerial === mutationSerial;
+
+          if (
+            startupStillCurrent &&
+            databaseState &&
+            databaseState.rev >= app.rev
+          ) {
+            app = databaseState;
+            render(true);
+            writeLocalState(cloneState(app));
+          } else if (
+            startupEpochStillCurrent &&
+            databaseState &&
+            databaseState.rev > app.rev
+          ) {
+            // A user action happened while IndexedDB was loading. Keep the
+            // visible state, but advance its revision so the next save wins.
+            app.rev = databaseState.rev;
+          }
+        } catch {
+          // Continue with the locally saved state.
+        }
+
+        try {
+          const storedImageKeys = await readImageKeys();
+          if (
+            startupEpoch === storageEpoch &&
+            startupImageMutationSerial === imageMutationSerial
+          ) {
+            imageKeys = storedImageKeys;
+            renderList();
+          }
+        } catch {
+          // Preserve any existing image keys and cache on a slow or unavailable database.
+        }
+
+        dirtyState = true;
+        scheduleStateSave(0);
+      }
+
+      function bindEvents() {
+        elements.list.addEventListener("click", (event) => {
+          const actionTarget = event.target.closest("[data-action]");
+          const row = event.target.closest(".row");
+          if (!actionTarget || !row) {
+            return;
+          }
+
+          const stickerCode = row.dataset.code;
+          switch (actionTarget.dataset.action) {
+            case "image":
+              openImage(stickerCode);
+              break;
+            case "increment":
+              stageCount(stickerCode, getCount(stickerCode) + 1);
+              break;
+            case "decrement":
+              stageCount(stickerCode, getCount(stickerCode) - 1);
+              break;
+          }
+        });
+
+        elements.list.addEventListener("keydown", (event) => {
+          const imageTarget = event.target.closest('[data-action="image"]');
+          const row = event.target.closest(".row");
+          if (
+            imageTarget &&
+            row &&
+            (event.key === "Enter" || event.key === " ")
+          ) {
+            event.preventDefault();
+            openImage(row.dataset.code);
+          }
+        });
+
+        elements.filters.addEventListener("click", (event) => {
+          const filter = event.target.closest("[data-filter]")?.dataset.filter;
+          if (filter) {
+            toggleFilter(filter);
+          }
+        });
+
+        elements.filterToggle.addEventListener("click", () => {
+          const open = !elements.filters.classList.contains("open");
+          elements.filters.classList.toggle("open", open);
+          elements.filterToggle.setAttribute("aria-expanded", String(open));
+        });
+
+        elements.sortAlbum.addEventListener("click", () => {
+          app.sort = "album";
+          markMutation();
+          scheduleStateSave();
+          render(true);
+        });
+
+        elements.sortName.addEventListener("click", () => {
+          app.sort = "name";
+          markMutation();
+          scheduleStateSave();
+          render(true);
+        });
+
+        elements.viewList.addEventListener("click", () => {
+          app.view = "list";
+          markMutation();
+          scheduleStateSave();
+          render();
+        });
+
+        elements.viewTiles.addEventListener("click", () => {
+          app.view = "tiles";
+          markMutation();
+          scheduleStateSave();
+          render();
+        });
+
+        elements.exportTxt.addEventListener("click", exportVisibleText);
+        elements.search.addEventListener("input", updateSearch);
+        elements.searchClear.addEventListener("click", () => {
+          elements.search.value = "";
+          elements.searchClear.hidden = true;
+          elements.search.focus();
+          render(true);
+        });
+
+        elements.more.addEventListener("click", () => {
+          pageSize += PAGE_SIZE;
+          renderList();
+        });
+
+        elements.menuOpen.addEventListener("click", () =>
+          togglePopover(elements.menuPop, elements.menuOpen),
+        );
+        elements.cartOpen.addEventListener("click", openCart);
+        elements.cartList.addEventListener("click", (event) => {
+          const stickerCode =
+            event.target.closest("[data-cart-remove]")?.dataset.cartRemove;
+          if (stickerCode) {
+            removeCartItem(stickerCode);
+          }
+        });
+        elements.clearCart.addEventListener("click", clearCart);
+        elements.historyOpen.addEventListener("click", openHistory);
+        elements.commit.addEventListener("click", commitChanges);
+        elements.tradeOpen.addEventListener("click", openTrade);
+        elements.copyTrade.addEventListener("click", copyTradeCode);
+        elements.pasteTrade.addEventListener("click", pasteTradeCode);
+        elements.compareTrade.addEventListener("click", compareTrade);
+        elements.clearTradeSelection.addEventListener(
+          "click",
+          clearTradeSelection,
+        );
+        elements.stageTrade.addEventListener("click", stageSelectedTrade);
+        elements.tradeResults.addEventListener("click", (event) => {
+          const row = event.target.closest("[data-trade-toggle]");
+          if (row) {
+            toggleTradeSelection(
+              row.dataset.tradeToggle,
+              String(row.dataset.code || "").toUpperCase(),
+            );
+            return;
+          }
+
+          const selectAllButton = event.target.closest("[data-trade-all]");
+          if (selectAllButton) {
+            toggleAllTradeMatches(selectAllButton.dataset.tradeAll);
+          }
+        });
+        elements.loadChecklist.addEventListener("click", () =>
+          elements.checklistFile.click(),
+        );
+        elements.loadImages.addEventListener("click", () =>
+          elements.imageFolder.click(),
+        );
+        elements.loadBackup.addEventListener("click", () =>
+          elements.backupFile.click(),
+        );
+        elements.saveBackup.addEventListener("click", saveBackup);
+        elements.resetApp.addEventListener("click", resetApp);
+        elements.confirmAccept.addEventListener("click", () =>
+          settleConfirmation(true),
+        );
+        elements.confirmCancel.addEventListener("click", () =>
+          settleConfirmation(false),
+        );
+        elements.confirmClose.addEventListener("click", () =>
+          settleConfirmation(false),
+        );
+
+        elements.checklistFile.addEventListener("change", async () => {
+          await appReady;
+          const file = elements.checklistFile.files?.[0];
+          if (!file) {
+            return;
+          }
+
+          try {
+            const checklist = parseChecklist(await readTextFile(file));
+            if (!checklist.length) {
+              throw new Error(
+                "No sticker lines found. Each line must begin with a sticker code such as ALG1 or FWC10.",
+              );
+            }
+            await applyChecklist(checklist);
+          } catch (error) {
+            showToast(error.message || "Checklist could not be read.");
+          } finally {
+            elements.checklistFile.value = "";
+          }
+        });
+
+        elements.imageFolder.addEventListener("change", async () => {
+          await appReady;
+          const files = Array.from(elements.imageFolder.files || []);
+          elements.imageFolder.value = "";
+          if (files.length) {
+            await loadImageFolder(files);
+          }
+        });
+
+        elements.backupFile.addEventListener("change", async () => {
+          await appReady;
+          const file = elements.backupFile.files?.[0];
+          if (!file) {
+            return;
+          }
+
+          try {
+            const backup = JSON.parse(await readTextFile(file));
+            await restoreBackup(backup);
+          } catch (error) {
+            showToast(error.message || "Backup could not be read.");
+          } finally {
+            elements.backupFile.value = "";
+          }
+        });
+
+        elements.historyList.addEventListener("click", (event) => {
+          const historyId =
+            event.target.closest("[data-revert]")?.dataset.revert;
+          if (historyId) {
+            stageHistoryRevert(historyId);
+          }
+        });
+
+        elements.imageStage.addEventListener("pointerdown", startSwipe);
+        elements.imageStage.addEventListener("pointermove", moveSwipe);
+        elements.imageStage.addEventListener("pointerup", endSwipe);
+        elements.imageStage.addEventListener("pointercancel", endSwipe);
+
+        document.addEventListener("click", (event) => {
+          if (
+            !event.target.closest(".pop") &&
+            !event.target.closest("#menuOpen")
+          ) {
+            closePopovers();
+          }
+
+          const closeButton = event.target.closest("[data-close]");
+          if (closeButton) {
+            closeModal(document.getElementById(closeButton.dataset.close));
+          }
+          if (event.target.classList.contains("backdrop")) {
+            closeModal(event.target);
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            elements.imageModal.classList.contains("open") &&
+            (event.key === "ArrowLeft" || event.key === "ArrowRight")
+          ) {
+            event.preventDefault();
+            animateImageChange(event.key === "ArrowRight" ? 1 : -1);
+          }
+
+          if (event.key === "Escape") {
+            closePopovers();
+            const openModalElement = $$(".backdrop.open").at(-1);
+            if (openModalElement) {
+              closeModal(openModalElement);
+            }
+          }
+        });
+
+        window.addEventListener("resize", closePopovers);
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "hidden") {
+            writeLatestStateBeforeExit();
+          }
+        });
+        window.addEventListener("pagehide", writeLatestStateBeforeExit);
+        window.addEventListener("beforeunload", () => {
+          writeLatestStateBeforeExit();
+          clearImageCache();
+        });
+      }
+
+      thumbnailObserver = initializeThumbnailObserver();
+      bindEvents();
+
+      (async () => {
+        try {
+          await Promise.race([
+            navigator.storage?.persist?.() || Promise.resolve(false),
+            new Promise((resolve) =>
+              window.setTimeout(() => resolve(false), 1500),
+            ),
+          ]);
+        } catch {
+          // Persistent storage is a best-effort browser feature.
+        }
+
+        try {
+          await initializeApp();
+        } finally {
+          resolveAppReady();
+        }
+      })();
+    </script>
+  </body>
+</html>
